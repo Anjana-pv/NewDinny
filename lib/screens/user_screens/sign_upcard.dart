@@ -1,6 +1,5 @@
-import 'package:dinnytable/client_dart/registratio.dart';
-import 'package:dinnytable/resuable_widget.dart/resuable.dart';
-import 'package:dinnytable/user_screens/home.dart';
+import 'package:dinnytable/screens/client_dart/registratio.dart';
+import 'package:dinnytable/widget.dart/resuable_widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

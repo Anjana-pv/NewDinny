@@ -1,30 +1,23 @@
-import 'package:dinnytable/client_dart/home_client.dart';
-import 'package:dinnytable/resuable_widget.dart/resuable.dart';
+import 'package:dinnytable/controllers/contollers.dart';
+import 'package:dinnytable/screens/client_dart/home_client.dart';
+import 'package:dinnytable/widget.dart/resuable_widgets.dart';
 import 'package:flutter/material.dart';
 
+
 class ResgistrationScreen extends StatelessWidget {
-  ResgistrationScreen({super.key});
-
-  TextEditingController resturentName = TextEditingController();
-
-  TextEditingController ownername = TextEditingController();
-
-  TextEditingController address = TextEditingController();
-
-  TextEditingController pincode = TextEditingController();
-
-  TextEditingController workhours = TextEditingController();
-
-  TextEditingController totalseats = TextEditingController();
+  const ResgistrationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 244, 245, 244),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
+
         title: const Text(
           "Registration",
           style: TextStyle(color: Colors.white),
+          
         ),
         centerTitle: true,
         backgroundColor: const Color.fromARGB(206, 4, 52, 29),
@@ -50,8 +43,7 @@ class ResgistrationScreen extends StatelessWidget {
               const SizedBox(
                 height: 50.5,
                  ),
-              reusableTextfeild(
-                  "Resturent Name", Icons.restaurant, false, resturentName),
+              reusableTextfeild( "Resturent Name", Icons.restaurant, false, resturentName),
               sized10,
               reusableTextfeild("Owner Name", Icons.person, false, ownername),
               sized10,

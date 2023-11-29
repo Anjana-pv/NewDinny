@@ -1,6 +1,6 @@
-import 'package:dinnytable/resuable_widget.dart/resuable.dart';
-import 'package:dinnytable/user_screens/home.dart';
-import 'package:dinnytable/user_screens/sign_upcard.dart';
+import 'package:dinnytable/widget.dart/resuable_widgets.dart';
+import 'package:dinnytable/screens/user_screens/home.dart';
+import 'package:dinnytable/screens/user_screens/sign_upcard.dart';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

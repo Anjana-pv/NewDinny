@@ -1,5 +1,5 @@
-import 'package:dinnytable/resuable_widget.dart/resuable.dart';
-import 'package:dinnytable/user_screens/login.dart';
+import 'package:dinnytable/widget.dart/resuable_widgets.dart';
+import 'package:dinnytable/screens/user_screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
