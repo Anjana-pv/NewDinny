@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 const sized10 = SizedBox( height: 10);
 const sized20 = SizedBox( height: 20);
 const sized30 = SizedBox(height: 30);
+Color myColor = const Color.fromRGBO(94, 137, 113, 1);
 
 buttonclik(BuildContext context, String namebutton, Widget destinationScreen) {
   return Row(
@@ -28,8 +29,7 @@ buttonclik(BuildContext context, String namebutton, Widget destinationScreen) {
 }
 Container customTextField(String text, IconData icon, bool isPasswordType, TextEditingController controller) {
   return Container(
-
-    width: 370, 
+     width: 370, 
     child: TextFormField(
       controller: controller,
       obscureText: isPasswordType,
@@ -88,5 +88,5 @@ Container reusableTextfeild(String text, IconData icon, bool isPasswordType, Tex
 }
 
 
-Color myColor = Color.fromRGBO(94, 137, 113, 1);
+
 

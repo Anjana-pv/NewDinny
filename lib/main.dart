@@ -1,5 +1,5 @@
 
-import 'package:dinnytable/screens/user_screens/login.dart';
+import 'package:dinnytable/screens/client_dart/login.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -1,7 +1,7 @@
+import 'package:dinnytable/screens/client_dart/home_client.dart';
+import 'package:dinnytable/screens/client_dart/sign_upcard.dart';
 import 'package:dinnytable/widget.dart/resuable_widgets.dart';
 import 'package:dinnytable/screens/user_screens/home.dart';
-import 'package:dinnytable/screens/user_screens/sign_upcard.dart';
-
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -31,16 +31,16 @@ class LoginScreen extends StatelessWidget {
             Column(
               children: [
                 sized20, 
-            customTextField ("Email ", Icons.person, false, userController),
+            reusableTextfeild ("UserName ", Icons.person, false, userController),
             sized10,
-            customTextField("Password", Icons.lock, true, passwordController),
+            reusableTextfeild("Password", Icons.lock, true, passwordController),
             sized10,
             const Padding(
               padding: EdgeInsets.only(left: 280),
               child: Text("Forget Password ?"),
             ),
             sized10,
-            buttonclik(context, "Login", const HomeScreen()),
+            buttonclik(context, "Login", const ClientHomescreen()),
             sized30,
             sized20,
             Center(
@@ -56,7 +56,7 @@ class LoginScreen extends StatelessWidget {
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 18.0),
                         recognizer: TapGestureRecognizer()..onTap = () {
-                       Get.to (const SignUp());
+                       Get.to ( SignUp());
                         
                         })
                   ],
@@ -65,7 +65,7 @@ class LoginScreen extends StatelessWidget {
             )
           ],
         ),
-          ]
+       ]
         ),
       ),
     );

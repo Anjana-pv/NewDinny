@@ -13,12 +13,10 @@ class ResgistrationScreen extends StatelessWidget {
       backgroundColor: const Color.fromARGB(255, 244, 245, 244),
       appBar: AppBar(
         automaticallyImplyLeading: false,
-
-        title: const Text(
+          title: const Text(
           "Registration",
           style: TextStyle(color: Colors.white),
-          
-        ),
+          ),
         centerTitle: true,
         backgroundColor: const Color.fromARGB(206, 4, 52, 29),
       ),

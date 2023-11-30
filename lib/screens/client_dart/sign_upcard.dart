@@ -11,11 +11,19 @@ TextEditingController emailcontroller = TextEditingController();
 TextEditingController passwordController = TextEditingController();
 
 class SignUp extends StatefulWidget {
-  const SignUp({Key? key});
+   SignUp({Key? key});
   @override
   State<SignUp> createState() => _SignUpState();
 }
 class _SignUpState extends State<SignUp> {
+
+ @override
+  void dispose() {
+     emailcontroller.dispose();
+     passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,14 +40,14 @@ class _SignUpState extends State<SignUp> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              customTextField("Email", Icons.mail, false, emailcontroller,),
+             reusableTextfeild("Email", Icons.mail, false, emailcontroller,),
 
             ],
           ),
           sized10,
           customTextField("Password", Icons.lock, true, passwordController,),
           sized30,sized20,
-          buttonclik(context,"Sign Up",  ResgistrationScreen()),
+          buttonclik(context,"Sign Up",  const ResgistrationScreen()),
           sized20,sized30,
           const Text("Or"),
          
@@ -87,10 +95,16 @@ class _SignUpState extends State<SignUp> {
         await FirebaseAuth.instance.signInWithCredential(credential);
 
     print(userCredential.user?.displayName);
-           Get.to(ResgistrationScreen());
+           Get.to(const ResgistrationScreen());
   } catch (e) {
     
     print("Error signing in with Google: $e");
+  }
+
+  Future signup() async{
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: emailcontroller.text.trim(),
+       password: passwordController.text.trim());
   }
 }
 
