@@ -31,6 +31,16 @@ class ClientHomescreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
+             const Padding(
+              padding: EdgeInsets.only(top: 20),
+              child: Text(
+                "",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 90),
               child: Center(

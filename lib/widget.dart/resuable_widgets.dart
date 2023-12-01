@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 const sized10 = SizedBox( height: 10);
 const sized20 = SizedBox( height: 20);
 const sized30 = SizedBox(height: 30);
+  const sized50 =  SizedBox(height: 50);
+
 Color myColor = const Color.fromRGBO(94, 137, 113, 1);
 
 buttonclik(BuildContext context, String namebutton, Widget destinationScreen) {
