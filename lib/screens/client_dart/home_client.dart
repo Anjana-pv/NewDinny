@@ -1,5 +1,9 @@
+import 'package:dinnytable/screens/client_dart/booking_scree.dart';
+import 'package:dinnytable/screens/client_dart/login.dart';
 import 'package:dinnytable/widget.dart/container.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ClientHomescreen extends StatelessWidget {
   const ClientHomescreen({super.key});
@@ -18,31 +22,21 @@ class ClientHomescreen extends StatelessWidget {
         centerTitle: true,
       backgroundColor: const Color.fromARGB(206, 4, 52, 29),
       actions: [
-        
-        IconButton(
-          icon: const Icon(Icons.menu,color: Colors.white,),
-          onPressed: () {
-           
+       IconButton(
+          icon: const Icon(Icons.logout,color: Colors.white,),
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+              Get.to(const LoginScreen());
           },
         ),
-
       ],
     ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-             const Padding(
-              padding: EdgeInsets.only(top: 20),
-              child: Text(
-                "",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
+          
             Padding(
-              padding: const EdgeInsets.only(top: 90),
+              padding: const EdgeInsets.only(top: 80),
               child: Center(
                 child: Container(
                   width: 300,
@@ -71,12 +65,13 @@ class ClientHomescreen extends StatelessWidget {
                   Positioned(
                     top: 50,
                     left: 50,
-                    child: smallContainer("Bookings"),
+                    
+                      child: smallContainer("Bookings",),
                   ),
                   Positioned(
                     top: 50,
                     right: 50,
-                    child: smallContainer("Notification"),
+                    child: smallContainer("Notification",),
                   ),
                   Positioned(
                     bottom: 50,

@@ -5,55 +5,72 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-TextEditingController userController = TextEditingController();
-TextEditingController passwordController = TextEditingController();
-
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key});
-
+   const LoginScreen({
+    super.key,
+  });
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-           Padding(
-             padding: const EdgeInsets.only(top:60),
-              child: Container(
-                 width: 200,
-                  height: 200,
-                   decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(
-                          "assest/Apple_Watch_41mm_-_2-transformed.png"),
-                    ),
-                  ),
-              ),
-           ),
-            Container(
-                width: 250,
-                height: 250,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage(
-                        "assest/image 9.png"),
-                  ),
+        child: Column(children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 60),
+            child: Container(
+              width: 200,
+              height: 200,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image:
+                      AssetImage("assest/Apple_Watch_41mm_-_2-transformed.png"),
                 ),
               ),
+            ),
+          ),
+          Container(
+            width: 250,
+            height: 250,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assest/image 9.png"),
+              ),
+            ),
+          ),
           Column(
             children: [
               sized20,
-              reusableTextfeild("Email ", Icons.person, false, emailcontroller),
+             TextFieldWidgetD(
+                    icon: const Icon(Icons.email,color: Colors.white,),
+                    labeltext: "Email",
+                    controller: emailcontroller,
+                    keyboardType: TextInputType.emailAddress,
+                    
+                    obscureText: false),
               sized10,
-              reusableTextfeild(
-                  "Password", Icons.lock, true, passwordController),
-              sized10,
+               TextFieldWidgetD(
+                    icon: const Icon(Icons.lock,color: Colors.white,),
+                    labeltext: "Password",
+                    controller: passwordController,
+                    keyboardType: TextInputType.name,
+                 
+                    obscureText: true),
+              sized20,
               ElevatedButton(
-                  onPressed: () {
-                    login(emailcontroller.text.trim(),
-                        passwordController.text.trim());
-                  },
-                  child: const Text("Login")),
+                onPressed: () {
+                  login(emailcontroller.text.trim(),
+                      passwordController.text.trim());
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                      const Color.fromARGB(206, 4, 52, 29)),
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                  fixedSize:
+                      MaterialStateProperty.all<Size>(const Size(250, 50.5)),
+                ),
+                child: const Text('Log in',style: TextStyle(fontSize: 16),),
+              ),
+             
               sized50,
               Center(
                 child: RichText(
@@ -70,8 +87,9 @@ class LoginScreen extends StatelessWidget {
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                               Get.to(SignUp());
-                            })
-                    ],
+                          }
+                       )
+                     ],
                   ),
                 ),
               )
@@ -82,4 +100,3 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
-  

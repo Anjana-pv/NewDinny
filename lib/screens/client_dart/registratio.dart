@@ -2,10 +2,10 @@ import 'package:dinnytable/controllers/contollers.dart';
 import 'package:dinnytable/screens/client_dart/home_client.dart';
 import 'package:dinnytable/widget.dart/resuable_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-
-class ResgistrationScreen extends StatelessWidget {
-  const ResgistrationScreen({super.key});
+class RegistrationScreen extends StatelessWidget {
+  const RegistrationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +13,10 @@ class ResgistrationScreen extends StatelessWidget {
       backgroundColor: const Color.fromARGB(255, 244, 245, 244),
       appBar: AppBar(
         automaticallyImplyLeading: false,
-          title: const Text(
+        title: const Text(
           "Registration",
           style: TextStyle(color: Colors.white),
-          ),
+        ),
         centerTitle: true,
         backgroundColor: const Color.fromARGB(206, 4, 52, 29),
       ),
@@ -40,35 +40,91 @@ class ResgistrationScreen extends StatelessWidget {
               ),
               const SizedBox(
                 height: 50.5,
-                 ),
-              reusableTextfeild( "Resturent Name", Icons.restaurant, false, resturentName),
-              sized10,
-              reusableTextfeild("Owner Name", Icons.person, false, ownername),
-              sized10,
-              reusableTextfeild("Address", Icons.location_city, false, address),
-              sized10,
-              reusableTextfeild("pincode", Icons.lock_clock, false, pincode),
-              sized10,
-              reusableTextfeild("Total Seats",
-                  Icons.airline_seat_legroom_reduced_sharp, false, totalseats),
-              sized10,
-              reusableTextfeild(
-                  "Type of Rsturent", Icons.ac_unit_sharp, false, totalseats),
-              sized10,
-              reusableTextfeild("Add manu", Icons.image, false, totalseats),
-              sized10,
-              reusableTextfeild(
-                "Submit Document",
-                Icons.book,
-                false,
-                totalseats,
               ),
+              TextFieldWidgetD(
+                  icon: const Icon(
+                    Icons.restaurant,
+                    color: Colors.white,
+                  ),
+                  labeltext: "Resturent Name",
+                  controller: resturentName,
+                  keyboardType: TextInputType.name,
+                 
+                  obscureText: false),
+              sized10,
+              TextFieldWidgetD(
+                  icon: const Icon(
+                    Icons.person,
+                    color: Colors.white,
+                  ),
+                  labeltext: "Owner Name",
+                  controller: ownername,
+                  keyboardType: TextInputType.name,
+                 
+                  obscureText: false),
+              sized10,
+              TextFieldWidgetD(
+                  icon: const Icon(
+                    Icons.location_city,
+                    color: Colors.white,
+                  ),
+                  labeltext: "Address",
+                  controller: address,
+                  keyboardType: TextInputType.name,
+                  
+                  obscureText: false),
+              sized10,
+              TextFieldWidgetD(
+                  icon: const Icon(
+                    Icons.numbers,
+                    color: Colors.white,
+                  ),
+                  labeltext: "pincode",
+                  controller: pincode,
+                  keyboardType: TextInputType.name,
+               
+                  obscureText: false),
+              sized10,
+              TextFieldWidgetD(
+                  icon: const Icon(
+                    Icons.airline_seat_legroom_normal_outlined,
+                    color: Colors.white,
+                  ),
+                  labeltext: "Total Seat ",
+                  controller: totalseats,
+                  keyboardType: TextInputType.number,
+             
+                  obscureText: false),
+              sized10,
+              TextFieldWidgetD(
+                  icon: const Icon(
+                    Icons.fastfood,
+                    color: Colors.white,
+                  ),
+                  labeltext: "Type of Resturent",
+                  controller: type_resturent,
+                  keyboardType: TextInputType.name,
+             
+                  obscureText: false),
+              
               Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    buttonclik(context, "submit", const ClientHomescreen())
+                    ElevatedButton(onPressed: () {
+                      Get.to( const ClientHomescreen());
+                    },
+                   style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                           const Color.fromARGB(206, 4, 52, 29)),
+                      foregroundColor:
+                          MaterialStateProperty.all<Color>(Colors.white),
+                      fixedSize: MaterialStateProperty.all<Size>(
+                          const Size(100, 50.5)),
+                    ),
+                    
+                         child: const Text("Submit"))
                   ],
                 ),
               )

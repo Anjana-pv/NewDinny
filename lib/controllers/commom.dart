@@ -6,4 +6,3 @@ TextEditingController resturentName = TextEditingController();
    TextEditingController pincode = TextEditingController();
    TextEditingController workhours = TextEditingController();
    TextEditingController totalseats = TextEditingController();
-   TextEditingController type_resturent =TextEditingController();
