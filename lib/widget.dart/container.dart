@@ -1,6 +1,4 @@
-import 'package:dinnytable/screens/client_dart/booking_scree.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 Widget smallContainer(String text,) {
  return  Container(

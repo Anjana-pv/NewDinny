@@ -1,4 +1,4 @@
-import 'package:dinnytable/screens/client_dart/booking_scree.dart';
+
 import 'package:dinnytable/screens/client_dart/login.dart';
 import 'package:dinnytable/widget.dart/container.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -48,6 +48,7 @@ class ClientHomescreen extends StatelessWidget {
                 ),
               ),
             ),
+          
             const SizedBox(
               height: 20,
             ),

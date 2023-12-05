@@ -1,4 +1,5 @@
-import 'package:dinnytable/controllers/contollers.dart';
+
+import 'package:dinnytable/controllers/registration_controller.dart';
 import 'package:dinnytable/screens/client_dart/home_client.dart';
 import 'package:dinnytable/widget.dart/resuable_widgets.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,8 @@ class RegistrationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    RegController regcontroller = Get.put(RegController());
+
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 244, 245, 244),
       appBar: AppBar(
@@ -47,7 +50,7 @@ class RegistrationScreen extends StatelessWidget {
                     color: Colors.white,
                   ),
                   labeltext: "Resturent Name",
-                  controller: resturentName,
+                  controller: regcontroller.resturentName,
                   keyboardType: TextInputType.name,
                  
                   obscureText: false),
@@ -58,7 +61,7 @@ class RegistrationScreen extends StatelessWidget {
                     color: Colors.white,
                   ),
                   labeltext: "Owner Name",
-                  controller: ownername,
+                  controller: regcontroller.ownerName,
                   keyboardType: TextInputType.name,
                  
                   obscureText: false),
@@ -69,7 +72,7 @@ class RegistrationScreen extends StatelessWidget {
                     color: Colors.white,
                   ),
                   labeltext: "Address",
-                  controller: address,
+                  controller: regcontroller.address,
                   keyboardType: TextInputType.name,
                   
                   obscureText: false),
@@ -80,7 +83,7 @@ class RegistrationScreen extends StatelessWidget {
                     color: Colors.white,
                   ),
                   labeltext: "pincode",
-                  controller: pincode,
+                  controller: regcontroller.pincode,
                   keyboardType: TextInputType.name,
                
                   obscureText: false),
@@ -91,7 +94,7 @@ class RegistrationScreen extends StatelessWidget {
                     color: Colors.white,
                   ),
                   labeltext: "Total Seat ",
-                  controller: totalseats,
+                  controller: regcontroller.totalSeats,
                   keyboardType: TextInputType.number,
              
                   obscureText: false),
@@ -102,7 +105,7 @@ class RegistrationScreen extends StatelessWidget {
                     color: Colors.white,
                   ),
                   labeltext: "Type of Resturent",
-                  controller: type_resturent,
+                  controller: regcontroller.typeResturent,
                   keyboardType: TextInputType.name,
              
                   obscureText: false),
@@ -113,6 +116,7 @@ class RegistrationScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(onPressed: () {
+                      regcontroller.addReg();
                       Get.to( const ClientHomescreen());
                     },
                    style: ButtonStyle(

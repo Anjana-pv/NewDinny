@@ -1,29 +1,27 @@
+import 'package:dinnytable/controllers/cient_controller.dart';
 import 'package:dinnytable/firebase/firebase_auth.dart';
+import 'package:dinnytable/screens/client_dart/registratio.dart';
 import 'package:dinnytable/widget.dart/resuable_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
+class SignUp extends StatelessWidget {
+  const SignUp({super.key});
 
-class SignUp extends StatefulWidget {
-   SignUp({Key? key});
-  @override
-  State<SignUp> createState() => _SignUpState();
-}
-
-TextEditingController emailcontroller = TextEditingController();
-TextEditingController passwordController = TextEditingController();
-TextEditingController userController = TextEditingController();
-
-class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
+    Client_controller clientcontroller = Get.put(Client_controller());
     return Scaffold(
         appBar: AppBar(),
-        body: Column(
+        body: ListView(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           children: [
-            const Text(
-              "Create an Account",
-              style: TextStyle(fontSize: 23.0, fontWeight: FontWeight.bold),
+            const Center(
+              child: Text(
+                "Create an Account",
+                style: TextStyle(fontSize: 23.0, fontWeight: FontWeight.bold),
+              ),
             ),
             Container(
               width: 200,
@@ -32,37 +30,44 @@ class _SignUpState extends State<SignUp> {
                   image: DecorationImage(
                       image: AssetImage(
                           'assest/Apple_Watch_41mm_-_2-transformed.png'))),
-                          ),
+            ),
             sized30,
             Center(
               child: Column(children: [
                 TextFieldWidgetD(
-                    icon: const Icon(Icons.person,color: Colors.white,),
+                    icon: const Icon(
+                      Icons.person,
+                      color: Colors.white,
+                    ),
                     labeltext: "Username",
-                    controller: userController,
+                    controller: clientcontroller.userController,
                     keyboardType: TextInputType.name,
-                  
                     obscureText: false),
                 sized20,
                 TextFieldWidgetD(
-                    icon: const Icon(Icons.email,color: Colors.white,),
+                    icon: const Icon(
+                      Icons.email,
+                      color: Colors.white,
+                    ),
                     labeltext: "Email",
-                    controller: emailcontroller,
+                    controller: clientcontroller.emailcontroller,
                     keyboardType: TextInputType.emailAddress,
-                   
                     obscureText: false),
                 sized20,
                 TextFieldWidgetD(
-                    icon: const Icon(Icons.lock,color: Colors.white,),
+                    icon: const Icon(
+                      Icons.lock,
+                      color: Colors.white,
+                    ),
                     labeltext: "Password",
-                    controller: passwordController,
+                    controller: clientcontroller.passwordController,
                     keyboardType: TextInputType.name,
-                   
                     obscureText: true),
                 sized30,
                 ElevatedButton(
                     onPressed: () {
                       signup();
+                      Get.to(const RegistrationScreen());
                     },
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
@@ -78,6 +83,7 @@ class _SignUpState extends State<SignUp> {
                 sized30,
                 GestureDetector(
                   onTap: () {
+                    clientcontroller.addContact();
                     signinggogle();
                   },
                   child: Container(

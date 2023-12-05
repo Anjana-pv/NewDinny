@@ -1,3 +1,4 @@
+import 'package:dinnytable/controllers/cient_controller.dart';
 import 'package:dinnytable/firebase/firebase_auth.dart';
 import 'package:dinnytable/screens/client_dart/sign_upcard.dart';
 import 'package:dinnytable/widget.dart/resuable_widgets.dart';
@@ -11,6 +12,7 @@ class LoginScreen extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
+   Client_controller clientcontroller = Get.put(Client_controller());  
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(children: [
@@ -42,7 +44,7 @@ class LoginScreen extends StatelessWidget {
              TextFieldWidgetD(
                     icon: const Icon(Icons.email,color: Colors.white,),
                     labeltext: "Email",
-                    controller: emailcontroller,
+                    controller: clientcontroller.emailcontroller,
                     keyboardType: TextInputType.emailAddress,
                     
                     obscureText: false),
@@ -50,15 +52,15 @@ class LoginScreen extends StatelessWidget {
                TextFieldWidgetD(
                     icon: const Icon(Icons.lock,color: Colors.white,),
                     labeltext: "Password",
-                    controller: passwordController,
+                    controller: clientcontroller.passwordController,
                     keyboardType: TextInputType.name,
                  
                     obscureText: true),
               sized20,
               ElevatedButton(
                 onPressed: () {
-                  login(emailcontroller.text.trim(),
-                      passwordController.text.trim());
+                  login(clientcontroller.emailcontroller.text.trim(),
+                      clientcontroller.passwordController.text.trim());
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
@@ -86,7 +88,7 @@ class LoginScreen extends StatelessWidget {
                               fontWeight: FontWeight.bold, fontSize: 18.0),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              Get.to(SignUp());
+                              Get.to(const SignUp());
                           }
                        )
                      ],
