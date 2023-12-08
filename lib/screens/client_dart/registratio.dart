@@ -1,6 +1,7 @@
-
 import 'package:dinnytable/controllers/registration_controller.dart';
+import 'package:dinnytable/firebase/add_image.dart';
 import 'package:dinnytable/screens/client_dart/home_client.dart';
+import 'package:dinnytable/widget.dart/card.dart';
 import 'package:dinnytable/widget.dart/resuable_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,34 +12,51 @@ class RegistrationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     RegController regcontroller = Get.put(RegController());
-
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 244, 245, 244),
-      appBar: AppBar(
+      appBar: const CustomAppBar(
+        title: "Registration",
         automaticallyImplyLeading: false,
-        title: const Text(
-          "Registration",
-          style: TextStyle(color: Colors.white),
-        ),
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(206, 4, 52, 29),
       ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(top: 70),
-                child: Container(
-                  width: 130,
-                  height: 130,
-                  decoration: BoxDecoration(
-                      image: const DecorationImage(
-                          image: AssetImage("assest/restaurant.png")),
+                padding: const EdgeInsets.only(top: 50),
+                child: GestureDetector(
+                  onTap: () => pickImage(),
+                  child: Container(
+                    width: 130,
+                    height: 130,
+                    decoration: BoxDecoration(
+                      image: regcontroller.imageFile != null
+                          ? DecorationImage(
+                              image: FileImage(regcontroller.imageFile!),
+                              fit: BoxFit.cover,
+                            )
+                          : const DecorationImage(
+                              image: AssetImage("assets/restaurant.png"),
+                              fit: BoxFit.cover,
+                            ),
                       borderRadius: BorderRadius.circular(20.0),
                       shape: BoxShape.rectangle,
                       border: Border.all(
-                          color: const Color.fromARGB(255, 37, 72, 38))),
+                        color: const Color.fromARGB(255, 37, 72, 38),
+                      ),
+                    ),
+                    child: regcontroller.imageFile == null
+                        ? const Center(
+                            child: Text(
+                              'Add Image',
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 11, 11, 11),
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          )
+                        : null,
+                  ),
                 ),
               ),
               const SizedBox(
@@ -52,7 +70,6 @@ class RegistrationScreen extends StatelessWidget {
                   labeltext: "Resturent Name",
                   controller: regcontroller.resturentName,
                   keyboardType: TextInputType.name,
-                 
                   obscureText: false),
               sized10,
               TextFieldWidgetD(
@@ -63,7 +80,6 @@ class RegistrationScreen extends StatelessWidget {
                   labeltext: "Owner Name",
                   controller: regcontroller.ownerName,
                   keyboardType: TextInputType.name,
-                 
                   obscureText: false),
               sized10,
               TextFieldWidgetD(
@@ -74,7 +90,6 @@ class RegistrationScreen extends StatelessWidget {
                   labeltext: "Address",
                   controller: regcontroller.address,
                   keyboardType: TextInputType.name,
-                  
                   obscureText: false),
               sized10,
               TextFieldWidgetD(
@@ -85,7 +100,6 @@ class RegistrationScreen extends StatelessWidget {
                   labeltext: "pincode",
                   controller: regcontroller.pincode,
                   keyboardType: TextInputType.name,
-               
                   obscureText: false),
               sized10,
               TextFieldWidgetD(
@@ -96,7 +110,6 @@ class RegistrationScreen extends StatelessWidget {
                   labeltext: "Total Seat ",
                   controller: regcontroller.totalSeats,
                   keyboardType: TextInputType.number,
-             
                   obscureText: false),
               sized10,
               TextFieldWidgetD(
@@ -107,28 +120,39 @@ class RegistrationScreen extends StatelessWidget {
                   labeltext: "Type of Resturent",
                   controller: regcontroller.typeResturent,
                   keyboardType: TextInputType.name,
-             
                   obscureText: false),
-              
+              sized10,
+              TextFieldWidgetD(
+                  icon: const Icon(
+                    Icons.lock_clock,
+                    color: Colors.white,
+                  ),
+                  labeltext: "Working hours",
+                  controller: regcontroller.workHours,
+                  keyboardType: TextInputType.number,
+                  obscureText: false),
+              sized10,
+              button(),
+              sized10,
               Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ElevatedButton(onPressed: () {
-                      regcontroller.addReg();
-                      Get.to( const ClientHomescreen());
-                    },
-                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                           const Color.fromARGB(206, 4, 52, 29)),
-                      foregroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
-                      fixedSize: MaterialStateProperty.all<Size>(
-                          const Size(100, 50.5)),
-                    ),
-                    
-                         child: const Text("Submit"))
+                    ElevatedButton(
+                        onPressed: () {
+                          regcontroller.addReg();
+                          Get.to(const ClientHomescreen());
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              const Color.fromARGB(206, 4, 52, 29)),
+                          foregroundColor:
+                              MaterialStateProperty.all<Color>(Colors.white),
+                          fixedSize: MaterialStateProperty.all<Size>(
+                              const Size(100, 50.5)),
+                        ),
+                        child: const Text("Submit"))
                   ],
                 ),
               )

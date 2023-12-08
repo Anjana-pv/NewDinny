@@ -7,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-Client_controller clientcontroller = Get.put(Client_controller());
+Clientcontroller clientcontroller = Get.put(Clientcontroller());
 Future<void> login(String email, String password) async {
   try {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance

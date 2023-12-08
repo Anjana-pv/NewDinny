@@ -12,7 +12,7 @@ class LoginScreen extends StatelessWidget {
   });
   @override
   Widget build(BuildContext context) {
-   Client_controller clientcontroller = Get.put(Client_controller());  
+   Clientcontroller clientcontroller = Get.put(Clientcontroller());  
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(children: [

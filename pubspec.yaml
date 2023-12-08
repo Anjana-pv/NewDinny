@@ -41,7 +41,10 @@ dependencies:
   firebase_auth: ^4.14.1
   font_awesome_flutter: ^10.6.0
   google_sign_in: ^6.1.6
-
+  image_picker: ^1.0.4
+  firebase_storage: ^11.5.3
+  file_picker: ^4.0.10
+ 
 
 dev_dependencies:
   flutter_test:

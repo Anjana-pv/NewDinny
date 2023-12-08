@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dinnytable/controllers/login_model.dart';
+import 'package:dinnytable/models/login_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Client_controller extends GetxController{
+class Clientcontroller extends GetxController{
 
  TextEditingController emailcontroller = TextEditingController();
 TextEditingController passwordController = TextEditingController();
@@ -24,5 +24,6 @@ TextEditingController userController = TextEditingController();
     await db.collection("users").add(client.toJson()).whenComplete(() => ()=>printInfo(info: "contact Added"),);
     
   }
+   
 
 }

@@ -6,9 +6,7 @@ import 'package:get/get.dart';
 
 final CollectionReference collection = FirebaseFirestore.instance.collection('users');
   RxList<Map<String, dynamic>> itemList = <Map<String, dynamic>>[].obs;
-
-
-
+  
   Future addUser(Map<String, dynamic> user)async{
   await collection.add(user);
  
