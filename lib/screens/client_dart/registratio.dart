@@ -141,7 +141,7 @@ class RegistrationScreen extends StatelessWidget {
                   children: [
                     ElevatedButton(
                         onPressed: () {
-                          regcontroller.addReg();
+                         regcontroller.creatregistration();
                           Get.to(const ClientHomescreen());
                         },
                         style: ButtonStyle(

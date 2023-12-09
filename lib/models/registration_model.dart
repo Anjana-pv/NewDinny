@@ -10,15 +10,16 @@ class RegModel {
   List<String>? imageUrls;
 
   RegModel({
-    this.resturentName,
-    this.ownerName,
-    this.address,
-    this.pincode,
-    this.totalSeats,
-    this.typeResturent,
-    this.workHours,
+    required this.resturentName,
+    required this.ownerName,
+    required this.address,
+    required this.pincode,
+    required this.totalSeats,
+    required this.typeResturent,
+    required this.workHours,
     required this.imageUrls, 
-    required String documentPDFUrl, required String imageUrl,
+    required String documentPDFUrl, 
+    required String imageUrl,
   });
 
   RegModel.fromJson(Map<String, dynamic> json) {
