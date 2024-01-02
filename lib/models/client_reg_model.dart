@@ -1,11 +1,12 @@
+
 class ClientRegModel {
   final String restaurantName;
   final String owner;
   final String address;
-  final String pinCode;
+  final String city;
   final String type;
-  final int     seatCount;
-  final int     workingHours;
+  final int    seatCount;
+  final int    workingHours;
   final String profileImage;
   final String pdf;
   final List    menuCards;
@@ -14,7 +15,7 @@ class ClientRegModel {
       {required this.restaurantName,
       required this.owner,
       required this.address,
-      required this.pinCode,
+      required this.city,
       required this.type,
       required this.seatCount,
       required this.workingHours,
@@ -22,3 +23,17 @@ class ClientRegModel {
       required this.pdf,
       required this.menuCards});
 }
+
+class Clientuser{
+  final String username;
+  final String password;
+  final String email;
+
+  Clientuser({
+    required this.username,
+    required this.password,
+    required this.email,
+});
+ }
+
+

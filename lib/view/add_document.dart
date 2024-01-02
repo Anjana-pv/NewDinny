@@ -1,7 +1,9 @@
 // ignore_for_file: invalid_use_of_protected_member
 
-import 'package:dinnytable/controllers/registration_controller.dart';
+import 'package:dinnytable/controller/controllers/registration_controller.dart';
 import 'package:dinnytable/models/client_reg_model.dart';
+import 'package:dinnytable/view/home_client.dart';
+import 'package:dinnytable/view/login.dart';
 import 'package:dinnytable/widget.dart/card.dart';
 import 'package:dinnytable/widget.dart/resuable_widgets.dart';
 
@@ -17,7 +19,7 @@ class AddDocuments extends StatelessWidget {
     required this.resturentName,
     required this.ownerName,
     required this.address,
-    required this.pincode,
+    required this.city,
     required this.totalSeats,
     required this.typeResturent,
     required this.workHours,
@@ -27,7 +29,7 @@ class AddDocuments extends StatelessWidget {
   final String? resturentName;
   final String? ownerName;
   final String? address;
-  final String? pincode;
+  final String? city;
   final String? workHours;
   final String? totalSeats;
   final String? typeResturent;
@@ -117,6 +119,7 @@ class AddDocuments extends StatelessWidget {
               ElevatedButton(
                 onPressed: () async {
                   onSubmit(regcontroller);
+               
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
@@ -135,19 +138,65 @@ class AddDocuments extends StatelessWidget {
     );
   }
 
-  Future<void> onSubmit(RegController controller) async {
-   final clientData= ClientRegModel(
-        restaurantName: resturentName ?? '',
-        owner: ownerName ?? '',
-        address: address ?? '',
-        pinCode: pincode ?? '',
-        type: typeResturent ?? '',
-        seatCount: int.parse(totalSeats ?? '0'),
-        workingHours: int.parse(workHours ?? '0'),
-        profileImage: imageUrls ?? '',
-        pdf: pdfUrls.value,
-        menuCards: cardUrls.value);
-       final bool responce= await controller.creatregistration(clientData);
+ Future<void> onSubmit(RegController controller) async {
+  if (resturentName == null ||
+      ownerName == null ||
+      address == null ||
+      city == null ||
+      totalSeats == null ||
+      typeResturent == null ||
+      workHours == null ||
+      imageUrls == null ||
+      cardUrls.isEmpty ||
+      pdfUrls.value.isEmpty) {
+    // Display an error message if any field is empty
+    Get.snackbar(
+      'Error',
+      'All fields must be filled and documents must be added.',
+      snackPosition: SnackPosition.BOTTOM,
+      duration: Duration(seconds: 3),
+      backgroundColor: Colors.red,
+      colorText: Colors.white,
+    );
+    return;
   }
 
+  final clientData = ClientRegModel(
+    restaurantName: resturentName!,
+    owner: ownerName!,
+    address: address!,
+    city: city!,
+    type: typeResturent!,
+    seatCount: int.parse(totalSeats!),
+    workingHours: int.parse(workHours!),
+    profileImage: imageUrls!,
+    pdf: pdfUrls.value,
+    menuCards: cardUrls.value,
+  );
+
+  final bool response = await controller.creatregistration(clientData);
+
+  if (response) {
+ 
+  Get.snackbar(
+      'Success',
+      'Registration successful!',
+      snackPosition: SnackPosition.BOTTOM,
+      duration: Duration(seconds: 3),
+      backgroundColor: Colors.green,
+      colorText: Colors.white,
+    );
+    Get.to(LoginScreen());
+  } else {
+    
+    Get.snackbar(
+      'Error',
+      'Registration failed. Please try again.',
+      snackPosition: SnackPosition.BOTTOM,
+      duration: Duration(seconds: 3),
+      backgroundColor: Colors.red,
+      colorText: Colors.white,
+    );
+  }
+}
 }

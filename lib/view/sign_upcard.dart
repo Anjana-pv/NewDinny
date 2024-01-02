@@ -1,12 +1,15 @@
-import 'package:dinnytable/controllers/cient_controller.dart';
-import 'package:dinnytable/firebase/firebase_auth.dart';
-import 'package:dinnytable/screens/client_dart/registratio.dart';
+import 'package:dinnytable/controller/controllers/cient_controller.dart';
+import 'package:dinnytable/controller/firebase/firebase_auth.dart';
+import 'package:dinnytable/models/client_reg_model.dart';
+import 'package:dinnytable/view/registratio.dart';
 import 'package:dinnytable/widget.dart/resuable_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
 class SignUp extends StatelessWidget {
+  
   const SignUp({super.key});
 
   @override
@@ -14,7 +17,11 @@ class SignUp extends StatelessWidget {
     Clientcontroller clientcontroller = Get.put(Clientcontroller());
     return Scaffold(
         appBar: AppBar(),
-        body: ListView(
+        
+        body:Form(
+        key:_formKey,
+        child:
+         ListView(
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
           children: [
             const Center(
@@ -31,44 +38,58 @@ class SignUp extends StatelessWidget {
                       image: AssetImage(
                           'assest/Apple_Watch_41mm_-_2-transformed.png'))),
             ),
-            sized30,
+            sized20,
             Center(
               child: Column(children: [
                 TextFieldWidgetD(
-                    icon: const Icon(
-                      Icons.person,
-                      color: Colors.white,
-                    ),
-                    labeltext: "Username",
-                    controller: clientcontroller.userController,
-                    keyboardType: TextInputType.name,
-                    obscureText: false),
-                sized20,
+                  icon: const Icon(
+                    Icons.person,
+                    color: Colors.white,
+                  ),
+                  labeltext: "Username",
+                  controller: clientcontroller.userController,
+                  keyboardType: TextInputType.name,
+                  obscureText: false,
+                ),
+                sized10,
                 TextFieldWidgetD(
-                    icon: const Icon(
-                      Icons.email,
-                      color: Colors.white,
-                    ),
-                    labeltext: "Email",
-                    controller: clientcontroller.emailcontroller,
-                    keyboardType: TextInputType.emailAddress,
-                    obscureText: false),
-                sized20,
+                  icon: const Icon(Icons.email, color: Colors.white),
+                  labeltext: "Email",
+                  controller: clientcontroller.emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  obscureText: false,
+                ),
+                sized10,
                 TextFieldWidgetD(
-                    icon: const Icon(
-                      Icons.lock,
-                      color: Colors.white,
-                    ),
-                    labeltext: "Password",
-                    controller: clientcontroller.passwordController,
-                    keyboardType: TextInputType.name,
-                    obscureText: true),
-                sized30,
+                  icon: const Icon(
+                    Icons.lock,
+                    color: Colors.white,
+                  ),
+                  labeltext: "Password",
+                  controller: clientcontroller.passwordController,
+                  keyboardType: TextInputType.name,
+                  obscureText: true,
+                  // validator: (String? value) {
+                  //   if (value == null || value.isEmpty) {
+                  //     return 'Please enter a password.';
+                  //   }
+                  //   return null;
+                  // },
+                ),
+                sized20,
                 ElevatedButton(
                     onPressed: () {
-                      signup();
-                      Get.to(const RegistrationScreen());
-                    },
+                       if (_formKey.currentState?.validate() ?? false) {
+                     signup();
+                       Get.to(const RegistrationScreen());       
+                    }else{
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Please fill in all fields.'),
+                        ),
+                      );
+                    }},
+                    
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all<Color>(
                           const Color.fromARGB(206, 4, 52, 29)),
@@ -80,10 +101,10 @@ class SignUp extends StatelessWidget {
                     child: const Text("Sign up")),
                 sized30,
                 const Text("Or"),
-                sized30,
+                sized20,
                 GestureDetector(
                   onTap: () {
-                    clientcontroller.addContact();
+                    
                     signinggogle();
                   },
                   child: Container(
@@ -112,6 +133,6 @@ class SignUp extends StatelessWidget {
               ]),
             ),
           ],
-        ));
+        )));
   }
 }

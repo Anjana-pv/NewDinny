@@ -1,13 +1,10 @@
-
-
 import 'dart:developer';
 import 'dart:io';
-
-import 'package:dinnytable/controllers/registration_controller.dart';
-import 'package:dinnytable/screens/add_document.dart';
+import 'package:dinnytable/controller/controllers/registration_controller.dart';
+import 'package:dinnytable/controller/firebase/images.dart';
+import 'package:dinnytable/view/add_document.dart';
 import 'package:dinnytable/widget.dart/card.dart';
 import 'package:dinnytable/widget.dart/resuable_widgets.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -34,7 +31,7 @@ class RegistrationScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 70),
+                    padding: const EdgeInsets.only(top: 50),
                     child: GestureDetector(
                       onTap: () => pickImage(),
                       child: Container(
@@ -75,7 +72,9 @@ class RegistrationScreen extends StatelessWidget {
                       labeltext: "Resturent Name",
                       controller: regcontroller.resturentName,
                       keyboardType: TextInputType.name,
-                      obscureText: false),
+                      obscureText: false,
+                      
+                      ),
                   sized10,
                   TextFieldWidgetD(
                       icon: const Icon(
@@ -85,7 +84,9 @@ class RegistrationScreen extends StatelessWidget {
                       labeltext: "Owner Name",
                       controller: regcontroller.ownerName,
                       keyboardType: TextInputType.name,
-                      obscureText: false),
+                      obscureText: false,
+                      
+                      ),
                   sized10,
                   TextFieldWidgetD(
                       icon: const Icon(
@@ -95,17 +96,21 @@ class RegistrationScreen extends StatelessWidget {
                       labeltext: "Address",
                       controller: regcontroller.address,
                       keyboardType: TextInputType.name,
-                      obscureText: false),
+                      obscureText: false,
+                      
+                       ),
                   sized10,
                   TextFieldWidgetD(
                       icon: const Icon(
-                        Icons.numbers,
+                        Icons.location_on_outlined,
                         color: Colors.white,
                       ),
-                      labeltext: "pincode",
-                      controller: regcontroller.pincode,
+                      labeltext: "City",
+                      controller: regcontroller.city,
                       keyboardType: TextInputType.name,
-                      obscureText: false),
+                      obscureText: false,
+                      
+                      ),
                   sized10,
                   TextFieldWidgetD(
                       icon: const Icon(
@@ -115,7 +120,9 @@ class RegistrationScreen extends StatelessWidget {
                       labeltext: "Total Seat ",
                       controller: regcontroller.totalSeats,
                       keyboardType: TextInputType.number,
-                      obscureText: false),
+                      obscureText: false,
+                      
+                      ),
                   sized10,
                   TextFieldWidgetD(
                       icon: const Icon(
@@ -125,7 +132,9 @@ class RegistrationScreen extends StatelessWidget {
                       labeltext: "Type of Resturent",
                       controller: regcontroller.typeResturent,
                       keyboardType: TextInputType.name,
-                      obscureText: false),
+                      obscureText: false,
+                      
+                      ),
                   sized10,
                   TextFieldWidgetD(
                       icon: const Icon(
@@ -135,22 +144,27 @@ class RegistrationScreen extends StatelessWidget {
                       labeltext: "Working hours",
                       controller: regcontroller.workHours,
                       keyboardType: TextInputType.number,
-                      obscureText: false),
+                      obscureText: false,
+                     
+                      ),
                   sized10,
-                  sized10,
+                
                   Padding(
-                    padding: const EdgeInsets.only(top: 20),
+                    padding: const EdgeInsets.only(top: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
                             onPressed: () async {
+                              if (!validateFields(regcontroller)) {
+                                return; 
+                              }
                               await uploadImage(image, context);
                               Get.to(AddDocuments(
                                 resturentName: regcontroller.resturentName.text,
                                 ownerName: regcontroller.ownerName.text,
                                 address: regcontroller.address.text,
-                                pincode: regcontroller.pincode.text,
+                                city: regcontroller.city.text,
                                 totalSeats: regcontroller.totalSeats.text,
                                 typeResturent: regcontroller.typeResturent.text,
                                 workHours: regcontroller.workHours.text,
@@ -165,7 +179,7 @@ class RegistrationScreen extends StatelessWidget {
                               foregroundColor: MaterialStateProperty.all<Color>(
                                   Colors.white),
                               fixedSize: MaterialStateProperty.all<Size>(
-                                  const Size(120, 50.5)),
+                                  const Size(200, 47)),
                             ),
                             child: const Text("Next >>"))
                       ],
@@ -193,38 +207,6 @@ class RegistrationScreen extends StatelessWidget {
       Get.find<RegistrationScreen>();
     } catch (e) {
       log('$e');
-    }
-  }
-
-  Future<void> uploadImage(XFile pickedFile, BuildContext context) async {
-    try {
-      String uniqueFilename = DateTime.now().millisecondsSinceEpoch.toString();
-      Reference referenceRoot = FirebaseStorage.instance.ref();
-      Reference referenceDirImages = referenceRoot.child('profileImg');
-      Reference referenceImagetoupload =
-          referenceDirImages.child(uniqueFilename);
-      await referenceImagetoupload.putFile(
-        File(pickedFile.path),
-        SettableMetadata(contentType: 'image/jpeg'),
-      );
-      Get.dialog(
-      const Dialog(
-        child: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CircularProgressIndicator(),
-              SizedBox(height: 16),
-              Text('Uploading Image...'),
-            ],
-          ),
-        ),
-      ),
-    );
-      downloadUrlImage = await referenceImagetoupload.getDownloadURL();
-    } catch (e) {
-      print('Error uploading file: $e');
     }
   }
 }

@@ -1,9 +1,9 @@
-import 'dart:developer';
+
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dinnytable/models/client_reg_model.dart';
-import 'package:dinnytable/models/registration_model.dart';
-import 'package:dinnytable/screens/client_dart/registratio.dart';
+
+
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,7 +15,7 @@ class RegController extends GetxController {
   TextEditingController resturentName = TextEditingController();
   TextEditingController ownerName = TextEditingController();
   TextEditingController address = TextEditingController();
-  TextEditingController pincode = TextEditingController();
+  TextEditingController city = TextEditingController();
   TextEditingController workHours = TextEditingController();
   TextEditingController totalSeats = TextEditingController();
   TextEditingController typeResturent = TextEditingController();
@@ -31,7 +31,7 @@ class RegController extends GetxController {
       'restaurantName': clientData.restaurantName,
       'owner': clientData.owner,
       'address': clientData.address,
-      'pinCode': clientData.pinCode,
+      'city': clientData.city,
       'type': clientData.type,
       'seatCount': clientData.seatCount,
       'workingHours': clientData.workingHours,

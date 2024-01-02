@@ -7,15 +7,16 @@ class TextFieldWidgetD extends StatelessWidget {
     required this.labeltext,
     required this.controller,
     required this.keyboardType,
-   
     required this.obscureText,
+    //  required this.validator,
   });
   final Widget icon;
   final String labeltext;
   final TextEditingController controller;
   final TextInputType keyboardType;
-
   final bool obscureText;
+  // final String? Function(String?) validator; 
+
   @override
   Widget build(BuildContext context) {
      return Container(
@@ -41,8 +42,7 @@ class TextFieldWidgetD extends StatelessWidget {
       ),
       
       keyboardType: keyboardType,
-      validator: (value) =>
-          controller.text.isEmpty ? 'Please enter $labeltext' : null, 
+      // validator: validator, 
     ),
   );
     

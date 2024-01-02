@@ -1,5 +1,5 @@
 
-import 'package:dinnytable/screens/client_dart/login.dart';
+import 'package:dinnytable/view/login.dart';
 import 'package:dinnytable/widget.dart/container.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -12,11 +12,14 @@ class ClientHomescreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         iconTheme: const IconThemeData(
         color: Colors.white, 
+        
       ),
         title: const Text(
-          "Home",style: TextStyle(color: Colors.white),
+          "Home",
+          style: TextStyle(color: Colors.white),
           ),
         
         centerTitle: true,
