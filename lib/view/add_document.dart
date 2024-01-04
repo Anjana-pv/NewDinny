@@ -1,8 +1,9 @@
-// ignore_for_file: invalid_use_of_protected_member
+import 'dart:developer';
 
-import 'package:dinnytable/controller/controllers/registration_controller.dart';
+import 'package:dinnytable/controller/controllers/cient_controller.dart';
+import 'package:dinnytable/controller/firebase/add_pdf.dart';
+import 'package:dinnytable/controller/firebase/signin_auth.dart';
 import 'package:dinnytable/models/client_reg_model.dart';
-import 'package:dinnytable/view/home_client.dart';
 import 'package:dinnytable/view/login.dart';
 import 'package:dinnytable/widget.dart/card.dart';
 import 'package:dinnytable/widget.dart/resuable_widgets.dart';
@@ -24,6 +25,9 @@ class AddDocuments extends StatelessWidget {
     required this.typeResturent,
     required this.workHours,
     required this.imageUrls,
+    this.username,
+    this.password,
+    this.email,
   });
 
   final String? resturentName;
@@ -34,10 +38,13 @@ class AddDocuments extends StatelessWidget {
   final String? totalSeats;
   final String? typeResturent;
   final String? imageUrls;
+  final String? username;
+  final String? password;
+  final String? email;
 
   @override
   Widget build(BuildContext context) {
-    RegController regcontroller = Get.put(RegController());
+    Clientcontroller regcontroller = Get.put(Clientcontroller());
     return Scaffold(
       appBar: const CustomAppBar(
         title: "Add Documents",
@@ -87,7 +94,7 @@ class AddDocuments extends StatelessWidget {
                   ],
                 ),
               ),
-              sized10,
+              sized50,
               Padding(
                 padding: const EdgeInsets.only(left: 12),
                 child: Row(
@@ -118,8 +125,7 @@ class AddDocuments extends StatelessWidget {
               sized30,
               ElevatedButton(
                 onPressed: () async {
-                  onSubmit(regcontroller);
-               
+                  onSubmit();
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
@@ -138,65 +144,65 @@ class AddDocuments extends StatelessWidget {
     );
   }
 
- Future<void> onSubmit(RegController controller) async {
-  if (resturentName == null ||
-      ownerName == null ||
-      address == null ||
-      city == null ||
-      totalSeats == null ||
-      typeResturent == null ||
-      workHours == null ||
-      imageUrls == null ||
-      cardUrls.isEmpty ||
-      pdfUrls.value.isEmpty) {
-    // Display an error message if any field is empty
-    Get.snackbar(
-      'Error',
-      'All fields must be filled and documents must be added.',
-      snackPosition: SnackPosition.BOTTOM,
-      duration: Duration(seconds: 3),
-      backgroundColor: Colors.red,
-      colorText: Colors.white,
+  Future<void> onSubmit() async {
+    if (resturentName == null ||
+        ownerName == null ||
+        address == null ||
+        city == null ||
+        totalSeats == null ||
+        typeResturent == null ||
+        workHours == null ||
+        imageUrls == null ||
+        cardUrls.isEmpty ||
+        pdfUrls.value.isEmpty) {
+      Get.snackbar(
+        'Error',
+        'All fields must be filled and documents must be added.',
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 3),
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+      return;
+    }
+
+    final clientData = ClientRegModel(
+      restaurantName: resturentName!,
+      owner: ownerName!,
+      address: address!,
+      city: city!,
+      type: typeResturent!,
+      seatCount: totalSeats!,
+      workingHours: workHours!,
+      profileImage: imageUrls!,
+      pdf: pdfUrls.value,
+      menuCards: cardUrls,
+      username: username!,
+      password: password!,
+      email: email!,
     );
-    return;
+
+    final bool response = await regcontroller.addContact(clientData);
+
+    if (response) { 
+      Get.snackbar(
+        'Success',
+        'Registration successful!',
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 3),
+        backgroundColor: Colors.green,
+        colorText: Colors.white,
+      );
+      Get.to(LoginScreen());
+    } else {
+      Get.snackbar(
+        'Error',
+        'Registration failed. Please try again.',
+        snackPosition: SnackPosition.BOTTOM,
+        duration: const Duration(seconds: 3),
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+    }
   }
-
-  final clientData = ClientRegModel(
-    restaurantName: resturentName!,
-    owner: ownerName!,
-    address: address!,
-    city: city!,
-    type: typeResturent!,
-    seatCount: int.parse(totalSeats!),
-    workingHours: int.parse(workHours!),
-    profileImage: imageUrls!,
-    pdf: pdfUrls.value,
-    menuCards: cardUrls.value,
-  );
-
-  final bool response = await controller.creatregistration(clientData);
-
-  if (response) {
- 
-  Get.snackbar(
-      'Success',
-      'Registration successful!',
-      snackPosition: SnackPosition.BOTTOM,
-      duration: Duration(seconds: 3),
-      backgroundColor: Colors.green,
-      colorText: Colors.white,
-    );
-    Get.to(LoginScreen());
-  } else {
-    
-    Get.snackbar(
-      'Error',
-      'Registration failed. Please try again.',
-      snackPosition: SnackPosition.BOTTOM,
-      duration: Duration(seconds: 3),
-      backgroundColor: Colors.red,
-      colorText: Colors.white,
-    );
-  }
-}
 }

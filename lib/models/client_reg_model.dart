@@ -5,11 +5,15 @@ class ClientRegModel {
   final String address;
   final String city;
   final String type;
-  final int    seatCount;
-  final int    workingHours;
+  final String seatCount;
+  final String workingHours;
   final String profileImage;
   final String pdf;
-  final List    menuCards;
+  final List   menuCards;
+  final String username;
+  final String password;
+  final String email;
+
 
   ClientRegModel(
       {required this.restaurantName,
@@ -21,19 +25,14 @@ class ClientRegModel {
       required this.workingHours,
       required this.profileImage,
       required this.pdf,
-      required this.menuCards});
+      required this.menuCards,
+       required this.username,
+       required this.password,
+        required this.email,
+      });
+
+  addContact(ClientRegModel clientData) {}
 }
 
-class Clientuser{
-  final String username;
-  final String password;
-  final String email;
-
-  Clientuser({
-    required this.username,
-    required this.password,
-    required this.email,
-});
- }
 
 

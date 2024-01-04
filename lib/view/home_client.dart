@@ -29,7 +29,7 @@ class ClientHomescreen extends StatelessWidget {
           icon: const Icon(Icons.logout,color: Colors.white,),
             onPressed: () async {
               await FirebaseAuth.instance.signOut();
-              Get.to(const LoginScreen());
+              Get.to(LoginScreen());
           },
         ),
       ],

@@ -1,6 +1,5 @@
  import 'dart:io';
-
-import 'package:dinnytable/controller/controllers/registration_controller.dart';
+import 'package:dinnytable/controller/controllers/cient_controller.dart';
 import 'package:dinnytable/view/registratio.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -38,16 +37,10 @@ Future<void> uploadImage(XFile pickedFile, BuildContext context) async {
       print('Error uploading file: $e');
     }
   }
-  bool validateFields(RegController regcontroller) {
-  if (regcontroller.resturentName.text.isEmpty ||
-      regcontroller.ownerName.text.isEmpty ||
-      regcontroller.address.text.isEmpty ||
-      regcontroller.city.text.isEmpty ||
-      regcontroller.totalSeats.text.isEmpty ||
-      regcontroller.typeResturent.text.isEmpty ||
-      regcontroller.workHours.text.isEmpty ||
+  bool validateFields(Clientcontroller regcontroller) {
+  if (
       imageurl.value.isEmpty) {
-    // Display an error message if any field is empty
+    
     Get.snackbar(
       'Error',
       'All fields must be filled and an image must be added.',

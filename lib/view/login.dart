@@ -1,16 +1,19 @@
-
 import 'package:dinnytable/controller/controllers/cient_controller.dart';
-import 'package:dinnytable/controller/firebase/firebase_auth.dart';
-import 'package:dinnytable/view/sign_upcard.dart';
+import 'package:dinnytable/controller/firebase/user_login.dart';
+import 'package:dinnytable/view/registratio.dart';
+import 'package:dinnytable/view/signup_screen.dart';
 import 'package:dinnytable/widget.dart/resuable_widgets.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+
+
 class LoginScreen extends StatelessWidget {
-  const LoginScreen({
+   const LoginScreen({
     super.key,
   });
+  
   @override
   Widget build(BuildContext context) {
     Clientcontroller clientcontroller = Get.put(Clientcontroller());
@@ -42,16 +45,16 @@ class LoginScreen extends StatelessWidget {
           Column(
             children: [
               sized10,
-
               TextFieldWidgetD(
                 icon: const Icon(
                   Icons.email,
                   color: Colors.white,
                 ),
                 labeltext: "Email",
-                controller: clientcontroller.emailController,
+                controller: clientcontroller.email,
                 keyboardType: TextInputType.emailAddress,
                 obscureText: false,
+          
                 
               ),
               sized10,
@@ -61,17 +64,18 @@ class LoginScreen extends StatelessWidget {
                   color: Colors.white,
                 ),
                 labeltext: "Password",
-                controller: clientcontroller.passwordController,
+                controller: clientcontroller.password,
                 keyboardType: TextInputType.name,
-                obscureText: true,
+                obscureText: true, 
+               
                 
               ),
               sized20,
               ElevatedButton(
                 onPressed: () {
                   // print('$passwordController ');
-                  login(clientcontroller.emailController.text.trim(),
-                      clientcontroller.passwordController.text.trim());
+                  login(clientcontroller.email.text.trim(),
+                      clientcontroller.password.text.trim());
                       // ClientHomescreen();
                 },
                 style: ButtonStyle(

@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
-import 'package:dinnytable/controller/controllers/registration_controller.dart';
-import 'package:dinnytable/controller/firebase/images.dart';
+import 'package:dinnytable/controller/controllers/cient_controller.dart';
+import 'package:dinnytable/controller/firebase/add_images.dart';
 import 'package:dinnytable/view/add_document.dart';
 import 'package:dinnytable/widget.dart/card.dart';
 import 'package:dinnytable/widget.dart/resuable_widgets.dart';
@@ -12,21 +12,35 @@ import 'package:image_picker/image_picker.dart';
 RxString imageurl = ''.obs;
 XFile image = XFile('');
 String downloadUrlImage = '';
+final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
 
 class RegistrationScreen extends StatelessWidget {
-  const RegistrationScreen({super.key});
+  const RegistrationScreen({
+    required this.username,
+     required this.password,
+     required this.email,
+    super.key,
+   
+  });
+   final String?username;
+    final String?password;
+    final String?email;
 
   @override
   Widget build(BuildContext context) {
-    RegController regcontroller = Get.put(RegController());
+   Clientcontroller regcontroller = Get.put(Clientcontroller());
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 244, 245, 244),
         appBar: const CustomAppBar(
           title: "Registration",
           automaticallyImplyLeading: false,
         ),
-        body: Obx(() {
+        body:
+         Obx(() {
           return SingleChildScrollView(
+            child: Form(
+            key: _formKey,
             child: Center(
               child: Column(
                 children: [
@@ -38,7 +52,7 @@ class RegistrationScreen extends StatelessWidget {
                         width: 130,
                         height: 130,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20.0),
+                          borderRadius: BorderRadius.circular(0.0),
                           shape: BoxShape.rectangle,
                           border: Border.all(
                             color: const Color.fromARGB(255, 37, 72, 38),
@@ -64,89 +78,56 @@ class RegistrationScreen extends StatelessWidget {
                   const SizedBox(
                     height: 50.5,
                   ),
-                  TextFieldWidgetD(
-                      icon: const Icon(
-                        Icons.restaurant,
-                        color: Colors.white,
-                      ),
-                      labeltext: "Resturent Name",
-                      controller: regcontroller.resturentName,
-                      keyboardType: TextInputType.name,
-                      obscureText: false,
-                      
-                      ),
+                  Customtextfeild(
+                    controller: regcontroller.resturentName, 
+                    hintText: 'Resturent name',
+                     icon:const Icon (Icons.restaurant_menu_outlined),
+                      obscureText: false, 
+                      keyboardType: TextInputType.name),     
                   sized10,
-                  TextFieldWidgetD(
-                      icon: const Icon(
-                        Icons.person,
-                        color: Colors.white,
-                      ),
-                      labeltext: "Owner Name",
-                      controller: regcontroller.ownerName,
-                      keyboardType: TextInputType.name,
+                  Customtextfeild(
+                    controller: regcontroller.ownerName, 
+                    hintText: 'Owner name',
+                     icon:const Icon (Icons.person),
                       obscureText: false,
-                      
-                      ),
+                       keyboardType:TextInputType.text),
                   sized10,
-                  TextFieldWidgetD(
-                      icon: const Icon(
-                        Icons.location_city,
-                        color: Colors.white,
-                      ),
-                      labeltext: "Address",
-                      controller: regcontroller.address,
-                      keyboardType: TextInputType.name,
+                   Customtextfeild(
+                    controller: regcontroller.address, 
+                    hintText: 'Address',
+                     icon:const Icon (Icons.location_city_outlined),
                       obscureText: false,
-                      
-                       ),
+                       keyboardType: TextInputType.multiline),
                   sized10,
-                  TextFieldWidgetD(
-                      icon: const Icon(
-                        Icons.location_on_outlined,
-                        color: Colors.white,
-                      ),
-                      labeltext: "City",
-                      controller: regcontroller.city,
-                      keyboardType: TextInputType.name,
+                   Customtextfeild(
+                    controller: regcontroller.city, 
+                    hintText: 'City',
+                     icon:const Icon (Icons.location_on),
                       obscureText: false,
-                      
-                      ),
+                       keyboardType: TextInputType.text),
+                    
                   sized10,
-                  TextFieldWidgetD(
-                      icon: const Icon(
-                        Icons.airline_seat_legroom_normal_outlined,
-                        color: Colors.white,
-                      ),
-                      labeltext: "Total Seat ",
-                      controller: regcontroller.totalSeats,
-                      keyboardType: TextInputType.number,
+                   Customtextfeild(
+                    controller: regcontroller.totalSeats, 
+                    hintText: 'Total Seats',
+                     icon:const Icon (Icons.airline_seat_legroom_reduced_sharp),
                       obscureText: false,
+                       keyboardType: TextInputType.number),
                       
-                      ),
                   sized10,
-                  TextFieldWidgetD(
-                      icon: const Icon(
-                        Icons.fastfood,
-                        color: Colors.white,
-                      ),
-                      labeltext: "Type of Resturent",
-                      controller: regcontroller.typeResturent,
-                      keyboardType: TextInputType.name,
+                  Customtextfeild(
+                    controller: regcontroller.typeResturent, 
+                    hintText: 'Type of Resturent',
+                     icon:const Icon (Icons.fastfood_rounded),
                       obscureText: false,
-                      
-                      ),
+                       keyboardType: TextInputType.text),
                   sized10,
-                  TextFieldWidgetD(
-                      icon: const Icon(
-                        Icons.lock_clock,
-                        color: Colors.white,
-                      ),
-                      labeltext: "Working hours",
-                      controller: regcontroller.workHours,
-                      keyboardType: TextInputType.number,
+                  Customtextfeild(
+                    controller: regcontroller.workHours, 
+                    hintText: 'Working Hours',
+                     icon:const Icon (Icons.av_timer),
                       obscureText: false,
-                     
-                      ),
+                       keyboardType: TextInputType.phone),
                   sized10,
                 
                   Padding(
@@ -156,11 +137,15 @@ class RegistrationScreen extends StatelessWidget {
                       children: [
                         ElevatedButton(
                             onPressed: () async {
+                               if (_formKey.currentState?.validate() ?? false){
                               if (!validateFields(regcontroller)) {
                                 return; 
                               }
                               await uploadImage(image, context);
                               Get.to(AddDocuments(
+                                username: regcontroller.user.text,
+                                password: regcontroller.password.text,
+                                email: regcontroller.email.text,
                                 resturentName: regcontroller.resturentName.text,
                                 ownerName: regcontroller.ownerName.text,
                                 address: regcontroller.address.text,
@@ -172,6 +157,7 @@ class RegistrationScreen extends StatelessWidget {
                               ));
                               imageurl = ''.obs;
                               downloadUrlImage = '';
+                               }
                             },
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
@@ -188,6 +174,7 @@ class RegistrationScreen extends StatelessWidget {
                 ],
               ),
             ),
+            )
           );
         }));
   }
@@ -210,3 +197,24 @@ class RegistrationScreen extends StatelessWidget {
     }
   }
 }
+bool validateFields(Clientcontroller regcontroller) {
+  if (regcontroller.resturentName.text.isEmpty ||
+      regcontroller.ownerName.text.isEmpty ||
+      regcontroller.address.text.isEmpty ||
+      regcontroller.city.text.isEmpty ||
+      regcontroller.totalSeats.text.isEmpty ||
+      regcontroller.typeResturent.text.isEmpty ||
+      regcontroller.workHours.text.isEmpty) {
+  
+    Get.snackbar(
+      'Error',
+      'Please fill in all fields.',
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.red,
+      colorText: Colors.white,
+    );
+    return false;
+  }
+  return true;
+}
+
