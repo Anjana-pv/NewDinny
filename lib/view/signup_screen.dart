@@ -15,7 +15,7 @@ class SignUp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Clientcontroller clientcontroller = Get.put(Clientcontroller());
-     FirebaseFirestore firestore = FirebaseFirestore.instance;
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
     return Scaffold(
         appBar: AppBar(),
         body: Form(
@@ -40,98 +40,124 @@ class SignUp extends StatelessWidget {
                 ),
                 sized20,
                 Center(
-                  child: Column(
-                    children: [
-                      Customtextfeild(
-                         hintText:'Username', 
-                          controller: clientcontroller.user,
-                           icon:const Icon( Icons.person,), 
-                            obscureText: false,
-                             keyboardType: TextInputType.name,
-                           ),
-                            sized10,
-                             Customtextfeild(
-                         hintText:'Email', 
-                          controller: clientcontroller.email,
-                           icon:const Icon( Icons.mail,),
-                             obscureText:false, 
-                             keyboardType: TextInputType.emailAddress,
-                           ),
-                           sized10,
-                           Customtextfeild(
-                         hintText:'Password', 
-                          controller: clientcontroller.password,
-                           icon:const Icon( Icons.lock,),
-                            obscureText: true, 
-                            keyboardType: TextInputType.visiblePassword,
-                           ),
+                  child: Column(children: [
+                    Customtextfeild(
+                      hintText: 'Username',
+                      controller: clientcontroller.user,
+                      icon: const Icon(
+                        Icons.person,
+                      ),
+                      obscureText: false,
+                      keyboardType: TextInputType.name,
+                    ),
+                    sized10,
+                    Customtextfeild(
+                      hintText: 'Email',
+                      controller: clientcontroller.email,
+                      icon: const Icon(
+                        Icons.mail,
+                      ),
+                      obscureText: false,
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                    sized10,
+                   Customtextfeild(
+                      hintText: 'Password',
+                      controller: clientcontroller.password,
+                      icon: const Icon(
+                        Icons.mail,
+                      ),
+                      obscureText: false,
+                      keyboardType: TextInputType.text
+                    ),    
+                    sized20,
+                    Padding(
+                      padding: const EdgeInsets.only(left: 30),
+                      child: Row(
+                        children: [
+                          SizedBox(
+                              width: 24,
+                              height: 24,
+                              child: Checkbox(
+                                value: false,
+                                onChanged: (value) {},
+                              )),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          const Text.rich(TextSpan(
+                            text: 'I Agree to policy and privacy',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16.0,
+                            ),
+                          ))
+                        ],
+                      ),
+                    ),
                     sized20,
                     ElevatedButton(
-                        onPressed:() async {
-                        if (_formKey.currentState?.validate() ?? false){
-                          if (!isValidEmail(clientcontroller.email.text)) {
+                        onPressed: () async {
+                          if (_formKey.currentState?.validate() ?? false) {
+                            if (!isValidEmail(clientcontroller.email.text)) {
                               Get.snackbar(
-                             ' Error',
-                               'Enter Proper Email id',
-                                snackPosition: SnackPosition.BOTTOM, 
-                                  duration: const Duration(seconds: 3), 
-                                   backgroundColor:  Colors.red,
-                                    colorText: Colors.white,
-                                     forwardAnimationCurve: Curves.easeOut,
-                                    snackStyle: SnackStyle.FLOATING, 
-                                 ); 
+                                ' Error',
+                                'Enter Proper Email id',
+                                snackPosition: SnackPosition.BOTTOM,
+                                duration: const Duration(seconds: 3),
+                                backgroundColor: Colors.red,
+                                colorText: Colors.white,
+                                forwardAnimationCurve: Curves.easeOut,
+                                snackStyle: SnackStyle.FLOATING,
+                              );
                               return;
                             }
-                           
-                            if (clientcontroller. password.text.length < 8) {
-                             Get.snackbar(
-                             ' Error',
-                               'Enter minimum 8 charecters in password',
-                                snackPosition: SnackPosition.BOTTOM, 
-                                  duration: const Duration(seconds: 3), 
-                                   backgroundColor:  Colors.red,
-                                    colorText: Colors.white,
-                                     forwardAnimationCurve: Curves.easeOut,
-                                    snackStyle: SnackStyle.FLOATING, 
-                                 );
-                              return;
-                            }
-                            
-                            QuerySnapshot emailSnapshot = await firestore
-                            .collection('clientdetail')
-                            .where('emailController',
-                             isEqualTo: clientcontroller.email.text)
-                            .get();
-                        QuerySnapshot usernameSnapshot = await firestore
-                            .collection('clientdetail')
-                            .where('userController',
-                             isEqualTo: clientcontroller.user.text)
-                            .get();
-                        
-                          
 
-                        if (emailSnapshot.docs.isNotEmpty&&usernameSnapshot.docs.isNotEmpty) {
-                          
-                          Get.snackbar(
-                            'Error',
-                            'User already in Exist ',
-                            snackPosition: SnackPosition.BOTTOM,
-                            duration: const Duration(seconds: 3),
-                            backgroundColor: Colors.red,
-                            colorText: Colors.white,
-                            forwardAnimationCurve: Curves.easeOut,
-                            snackStyle: SnackStyle.FLOATING,
-                          );
-                        }
-                           
-                            else {
-                            Get.to(RegistrationScreen(
-                            username: clientcontroller.user.text,
-                            password: clientcontroller.password.text,
-                            email: clientcontroller.email.text,
-                          ));
-                        }
-                        }
+                            if (clientcontroller.password.text.length < 8) {
+                              Get.snackbar(
+                                ' Error',
+                                'Enter minimum 8 charecters in password',
+                                snackPosition: SnackPosition.BOTTOM,
+                                duration: const Duration(seconds: 3),
+                                backgroundColor: Colors.red,
+                                colorText: Colors.white,
+                                forwardAnimationCurve: Curves.easeOut,
+                                snackStyle: SnackStyle.FLOATING,
+                              );
+                              return;
+                            }
+
+                            QuerySnapshot emailSnapshot = await firestore
+                                .collection('clientdetail')
+                                .where('emailController',
+                                    isEqualTo: clientcontroller.email.text)
+                                .get();
+                            QuerySnapshot usernameSnapshot = await firestore
+                                .collection('clientdetail')
+                                .where('userController',
+                                    isEqualTo: clientcontroller.user.text)
+                                .get();
+
+                            if (emailSnapshot.docs.isNotEmpty &&
+                                usernameSnapshot.docs.isNotEmpty) {
+                              Get.snackbar(
+                                'Error',
+                                'User already in Exist ',
+                                snackPosition: SnackPosition.BOTTOM,
+                                duration: const Duration(seconds: 3),
+                                backgroundColor: Colors.red,
+                                colorText: Colors.white,
+                                forwardAnimationCurve: Curves.easeOut,
+                                snackStyle: SnackStyle.FLOATING,
+                              );
+                            } else {
+                              Get.to(RegistrationScreen(
+                                username: clientcontroller.user.text,
+                                password: clientcontroller.password.text,
+                                email: clientcontroller.email.text,
+                              ));
+                            }
+                          }
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(
@@ -141,8 +167,7 @@ class SignUp extends StatelessWidget {
                           fixedSize: MaterialStateProperty.all<Size>(
                               const Size(250, 50.5)),
                         ),
-                        child: const Text("Sign up")
-                        ),
+                        child: const Text("Sign up")),
                     sized30,
                     const Text("Or"),
                     sized20,
@@ -179,10 +204,9 @@ class SignUp extends StatelessWidget {
             )));
   }
 }
+
 bool isValidEmail(String email) {
   RegExp emailRegExp =
       RegExp(r'^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$');
   return emailRegExp.hasMatch(email);
 }
-
-

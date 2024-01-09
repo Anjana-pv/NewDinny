@@ -45,6 +45,7 @@ class AddDocuments extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Clientcontroller regcontroller = Get.put(Clientcontroller());
+    
     return Scaffold(
       appBar: const CustomAppBar(
         title: "Add Documents",
@@ -82,7 +83,7 @@ class AddDocuments extends StatelessWidget {
                         ),
                         child: const Center(
                           child: Text(
-                            "Add Cards",
+                            "Menu Card img",
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 16,
@@ -94,7 +95,7 @@ class AddDocuments extends StatelessWidget {
                   ],
                 ),
               ),
-              sized50,
+              sized30,
               Padding(
                 padding: const EdgeInsets.only(left: 12),
                 child: Row(
@@ -118,10 +119,14 @@ class AddDocuments extends StatelessWidget {
                           ),
                         ),
                       ),
+                      
                     ),
+                   
                   ],
                 ),
               ),
+               sized10,
+                    Text(" * Please provide a PDF containing your valid documentation."),
               sized30,
               ElevatedButton(
                 onPressed: () async {

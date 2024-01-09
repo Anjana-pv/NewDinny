@@ -1,6 +1,5 @@
 import 'package:dinnytable/controller/controllers/cient_controller.dart';
 import 'package:dinnytable/controller/firebase/user_login.dart';
-import 'package:dinnytable/view/registratio.dart';
 import 'package:dinnytable/view/signup_screen.dart';
 import 'package:dinnytable/widget.dart/resuable_widgets.dart';
 import 'package:flutter/gestures.dart';
@@ -8,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 
-
+final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 class LoginScreen extends StatelessWidget {
    const LoginScreen({
     super.key,
@@ -42,41 +41,37 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
           ),
-          Column(
-            children: [
+          Form(
+        key: _formKey, // Add this line to provide the form key
+        child: Column(
+             children: [
               sized10,
-              TextFieldWidgetD(
-                icon: const Icon(
-                  Icons.email,
-                  color: Colors.white,
-                ),
-                labeltext: "Email",
-                controller: clientcontroller.email,
-                keyboardType: TextInputType.emailAddress,
+             Customtextfeild(
+              controller:clientcontroller.user ,
+               hintText: 'Username', 
+               icon: const Icon(Icons.person),
                 obscureText: false,
-          
-                
-              ),
+                 keyboardType: TextInputType.name),
               sized10,
-              TextFieldWidgetD(
-                icon: const Icon(
-                  Icons.lock,
-                  color: Colors.white,
-                ),
-                labeltext: "Password",
+              Customtextfeild(
                 controller: clientcontroller.password,
-                keyboardType: TextInputType.name,
-                obscureText: true, 
-               
-                
-              ),
+                 hintText:' Password',
+                  icon: const Icon(Icons.lock), 
+                  obscureText: true,
+                   keyboardType: TextInputType.text),
               sized20,
               ElevatedButton(
                 onPressed: () {
+                   if (_formKey.currentState?.validate() ?? false) {
                   // print('$passwordController ');
+                     clientcontroller.email.clear();
+                     clientcontroller.password.clear();
+                     
                   login(clientcontroller.email.text.trim(),
                       clientcontroller.password.text.trim());
                       // ClientHomescreen();
+                   }
+
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
@@ -114,8 +109,12 @@ class LoginScreen extends StatelessWidget {
               )
             ],
           ),
+          ),
         ]),
       ),
     );
   }
+
+
+
 }

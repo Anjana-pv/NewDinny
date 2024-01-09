@@ -24,6 +24,7 @@ class Clientcontroller extends GetxController {
   var loginlist = RxList<ClientRegModel>();
   final db = FirebaseFirestore.instance;
   final storage = FirebaseStorage.instance;
+  RxBool obscureText = true.obs;
 
   Future<bool> addContact(ClientRegModel clientinfo) async {
     Map<String, dynamic> clietRegMap = {
@@ -55,4 +56,8 @@ class Clientcontroller extends GetxController {
   isUsernameTaken(String trim) {}
 
   isEmailTaken(String email) {}
+
+  void togglePasswordVisibility() {
+    obscureText.toggle();
+  }
 }
