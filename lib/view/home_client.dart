@@ -1,7 +1,7 @@
-
-import 'package:dinnytable/view/login.dart';
+import 'package:dinnytable/view/booking_screen.dart';
+import 'package:dinnytable/view/demo.dart';
 import 'package:dinnytable/widget.dart/container.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:dinnytable/widget.dart/resuable_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,37 +15,31 @@ class ClientHomescreen extends StatelessWidget {
         automaticallyImplyLeading: false,
         iconTheme: const IconThemeData(
         color: Colors.white, 
-        
-      ),
+         ),
         title: const Text(
           "Home",
           style: TextStyle(color: Colors.white),
           ),
-        
-        centerTitle: true,
-      backgroundColor: const Color.fromARGB(206, 4, 52, 29),
-      actions: [
-       IconButton(
-          icon: const Icon(Icons.logout,color: Colors.white,),
+        leading: IconButton(
+          icon: const Icon(Icons.menu,color: Colors.white,),
             onPressed: () async {
-              await FirebaseAuth.instance.signOut();
-              Get.to(LoginScreen());
+              // await FirebaseAuth.instance.signOut();
+              // Get.to(LoginScreen());
           },
         ),
-      ],
+        centerTitle: true,
+      backgroundColor: const Color.fromARGB(206, 4, 52, 29),  
     ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-          
-            Padding(
+           Padding(
               padding: const EdgeInsets.only(top: 80),
               child: Center(
                 child: Container(
-                  width: 300,
-                  height: 300,
-
-                  decoration: const BoxDecoration(
+                  width: 270,
+                  height: 270,
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage("assest/image 8.png"))),
                 ),
@@ -55,11 +49,14 @@ class ClientHomescreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
+           
+            sized50,
             Stack(
               children: [
                 Container(
-                  width: 350,
-                  height: 350,
+                  width: 300,
+                  height: 300,
+
                   decoration: BoxDecoration(
                     color: const Color.fromRGBO(81, 150, 112, 0.411),
                     borderRadius: BorderRadius.circular(20.0),
@@ -67,26 +64,30 @@ class ClientHomescreen extends StatelessWidget {
                  child: Stack(
                 children: [
                   Positioned(
-                    top: 50,
-                    left: 50,
+                    top: 30,
+                    left: 30,
                     
-                      child: smallContainer("Bookings",),
+                      child: InkWell(
+                        onTap: (){
+                          Get.to( FrostedGlassScreen());
+                        },
+                  child: smallContainer("Bookings",)),
                   ),
                   Positioned(
-                    top: 50,
-                    right: 50,
+                    top: 30,
+                    right: 30,
                     child: smallContainer("Notification",),
                   ),
                   Positioned(
-                    bottom: 50,
-                    left: 50,
+                    bottom: 30,
+                    left: 30,
                     child: smallContainer("Add Offers"),
                   ),
                   Positioned(
-                    bottom: 50,
-                    right: 50,
+                    bottom: 30,
+                    right: 30,
                     child: smallContainer("Cancel"),
-
+ 
                   ),
                 ],
               ),

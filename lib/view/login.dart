@@ -7,15 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 
-final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
 class LoginScreen extends StatelessWidget {
-   const LoginScreen({
+  const LoginScreen({
     super.key,
   });
-  
+
   @override
   Widget build(BuildContext context) {
     Clientcontroller clientcontroller = Get.put(Clientcontroller());
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(children: [
@@ -42,79 +43,71 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
           Form(
-        key: _formKey, // Add this line to provide the form key
-        child: Column(
-             children: [
-              sized10,
-             Customtextfeild(
-              controller:clientcontroller.user ,
-               hintText: 'Username', 
-               icon: const Icon(Icons.person),
-                obscureText: false,
-                 keyboardType: TextInputType.name),
-              sized10,
-              Customtextfeild(
-                controller: clientcontroller.password,
-                 hintText:' Password',
-                  icon: const Icon(Icons.lock), 
-                  obscureText: true,
-                   keyboardType: TextInputType.text),
-              sized20,
-              ElevatedButton(
-                onPressed: () {
-                   if (_formKey.currentState?.validate() ?? false) {
-                  // print('$passwordController ');
-                     clientcontroller.email.clear();
-                     clientcontroller.password.clear();
-                     
-                  login(clientcontroller.email.text.trim(),
-                      clientcontroller.password.text.trim());
-                      // ClientHomescreen();
-                   }
-
-                },
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                      const Color.fromARGB(206, 4, 52, 29)),
-                  foregroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white),
-                  fixedSize:
-                      MaterialStateProperty.all<Size>(const Size(250, 50.5)),
-                ),
-                child: const Text(
-                  'Log in',
-                  style: TextStyle(fontSize: 16),
-                ),
-              ),
-              sized30,
-              Center(
-                child: RichText(
-                  text: TextSpan(
-                    style: const TextStyle(fontSize: 16.0, color: Colors.black),
-                    children: [
-                      const TextSpan(
-                        text: 'New User? ',
-                      ),
-                      TextSpan(
-                          text: 'Sign Up',
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 18.0),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              Get.to(const SignUp());
-                            })
-                    ],
+            key: formKey, 
+            child: Column(
+              children: [
+                sized10,
+                Customtextfeild(
+                    controller: clientcontroller.email,
+                    hintText: 'Email',
+                    icon: const Icon(Icons.person),
+                    obscureText: false,
+                    keyboardType: TextInputType.emailAddress),
+                sized10,
+                Customtextfeild(
+                    controller: clientcontroller.password,
+                    hintText: ' Password',
+                    icon: const Icon(Icons.lock),
+                    obscureText: true,
+                    keyboardType: TextInputType.text),
+                sized20,
+                ElevatedButton(
+                  onPressed: () {
+                    if (formKey.currentState?.validate() ?? false) {
+                      login(clientcontroller.email.text.trim(),
+                          clientcontroller.password.text.trim());
+                    }
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        const Color.fromARGB(206, 4, 52, 29)),
+                    foregroundColor:
+                        MaterialStateProperty.all<Color>(Colors.white),
+                    fixedSize:
+                        MaterialStateProperty.all<Size>(const Size(250, 50.5)),
+                  ),
+                  child: const Text(
+                    'Log in',
+                    style: TextStyle(fontSize: 16),
                   ),
                 ),
-              )
-            ],
-          ),
+                sized30,
+                Center(
+                  child: RichText(
+                    text: TextSpan(
+                      style:
+                          const TextStyle(fontSize: 16.0, color: Colors.black),
+                      children: [
+                        const TextSpan(
+                          text: 'New User? ',
+                        ),
+                        TextSpan(
+                            text: 'Sign Up',
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 18.0),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Get.to(const SignUp());
+                              })
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ]),
       ),
     );
   }
-
-
-
 }

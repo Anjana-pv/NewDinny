@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> uploadImage(XFile pickedFile, BuildContext context) async {
     try {
@@ -53,4 +54,17 @@ Future<void> uploadImage(XFile pickedFile, BuildContext context) async {
   }
 
   return true;
+  }
+Future<bool> shouldShowCard() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  bool cardAlreadyShown = prefs.getBool('cardAlreadyShown') ?? false;
+
+  if (!cardAlreadyShown) {
+    // If the card hasn't been shown, set the status to true
+    prefs.setBool('cardAlreadyShown', true);
+    return true;
+  } else {
+    return false;
+  }
 }
+  

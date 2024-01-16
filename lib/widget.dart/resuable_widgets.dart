@@ -53,3 +53,55 @@ class Customtextfeild extends StatelessWidget {
     );
   }
 }
+class Tabletextfeild extends StatelessWidget {
+  const Tabletextfeild({
+    super.key,
+    required this.text,
+    required this.controller
+    
+  });
+  final String text;
+  final TextEditingController controller ;    
+    @override
+  Widget build(BuildContext context) {
+   return
+      Row(
+        children: [
+           Padding(
+             padding: const EdgeInsets.all(8.0),
+             child: Text(
+              text,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
+              ),
+                       ),
+           ),
+          const SizedBox(
+            width: 70), 
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(right: 20),
+              child: TextFormField(
+                controller:controller ,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                  hintText: "0",
+                  filled: true,
+                  fillColor: Colors.white,
+                ),
+                 validator: (value) =>
+            controller.text.isEmpty ? 
+            'Please enter the value' : null,
+               ),
+              ),
+            ),
+          
+          
+        ],
+     
+        
+      
+    );
+  }
+}

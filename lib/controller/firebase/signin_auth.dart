@@ -28,6 +28,15 @@ googlesignin() async {
     // print("Error signing in with Google: $e");
   }
 }
+   googlesignout() async {
+  try {
+    await GoogleSignIn().signOut();
+    print("Google Sign-Out successful");
+  } catch (e) {
+    print("Error signing out with Google: $e");
+  
+  }
+}
 
 
   

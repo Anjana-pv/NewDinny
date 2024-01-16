@@ -7,19 +7,20 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
 
 class SignUp extends StatelessWidget {
   const SignUp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     Clientcontroller clientcontroller = Get.put(Clientcontroller());
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     return Scaffold(
         appBar: AppBar(),
         body: Form(
-            key: _formKey,
+            key: formKey,
             child: ListView(
               keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
               children: [
@@ -98,7 +99,7 @@ class SignUp extends StatelessWidget {
                     sized20,
                     ElevatedButton(
                         onPressed: () async {
-                          if (_formKey.currentState?.validate() ?? false) {
+                          if (formKey.currentState?.validate() ?? false) {
                             if (!isValidEmail(clientcontroller.email.text)) {
                               Get.snackbar(
                                 ' Error',
@@ -113,7 +114,7 @@ class SignUp extends StatelessWidget {
                               return;
                             }
 
-                            if (clientcontroller.password.text.length < 8) {
+                            if (clientcontroller.password.text.length < 1) {
                               Get.snackbar(
                                 ' Error',
                                 'Enter minimum 8 charecters in password',

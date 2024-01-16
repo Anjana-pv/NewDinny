@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-
-
   const CustomAppBar({super.key, required this.title, required bool automaticallyImplyLeading,});
 
   @override
@@ -11,7 +9,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
      title: Text(
         title,
-        style: const TextStyle(color: Colors.white),
+        style: const TextStyle(
+          color: Colors.white),
       ),
        automaticallyImplyLeading: false,
       centerTitle: true,
