@@ -50,6 +50,7 @@ class SignUp extends StatelessWidget {
                       ),
                       obscureText: false,
                       keyboardType: TextInputType.name,
+                      
                     ),
                     sized10,
                     Customtextfeild(

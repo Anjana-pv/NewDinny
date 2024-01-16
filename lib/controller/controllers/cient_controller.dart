@@ -20,6 +20,10 @@ class Clientcontroller extends GetxController {
   TextEditingController workHours = TextEditingController();
   TextEditingController totalSeats = TextEditingController();
   TextEditingController typeResturent = TextEditingController();
+  TextEditingController t1= TextEditingController();
+TextEditingController t2 = TextEditingController();
+TextEditingController t3= TextEditingController();
+TextEditingController t4 = TextEditingController();
  
   File? imageFile;
 
@@ -43,10 +47,10 @@ class Clientcontroller extends GetxController {
       'profileImage': clientinfo.profileImage,
       'pdf': clientinfo.pdf,
       'menuCards': clientinfo.menuCards,
-       'two':clientinfo.t1,
-      'four':clientinfo.t2,
-      'six':clientinfo.t3,
-      'twelve':clientinfo.t4
+       't1':clientinfo.t1,
+      't2':clientinfo.t2,
+      't3':clientinfo.t3,
+      't4':clientinfo.t4
     };
     try {
       await FirebaseFirestore.instance

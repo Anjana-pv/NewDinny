@@ -16,7 +16,7 @@ class Customtextfeild extends StatelessWidget {
     required this.hintText,
     required this.icon,
     required this.obscureText,
-    required this.keyboardType,
+    required this.keyboardType, 
   }) : super(key: key);
 
   final TextEditingController controller;

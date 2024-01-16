@@ -46,7 +46,7 @@ Future<void> uploadPdf(File pdfFile, RxString pdf) async {
   }
 }
 
-Future<void> pickImagesAndUpload(RxList cardUrls) async {
+Future pickImagesAndUpload(RxList cardUrls) async {
   List<File> pickedImages = [];
 
   final picker = ImagePicker();
@@ -59,7 +59,7 @@ Future<void> pickImagesAndUpload(RxList cardUrls) async {
   }
 }
 
-Future<void> uploadImages(List<File> imgFiles, RxList cardUrls) async {
+Future uploadImages(List<File> imgFiles, RxList cardUrls) async {
   try {
     final storage = FirebaseStorage.instance;
     for (File imgFile in imgFiles) {

@@ -122,6 +122,7 @@ class RegistrationScreen extends StatelessWidget {
                       obscureText: false,
                        keyboardType: TextInputType.text),
                   sized10,
+                  
                   Customtextfeild(
                     controller: regcontroller.workHours, 
                     hintText: 'Working Hours',

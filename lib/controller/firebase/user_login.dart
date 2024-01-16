@@ -5,18 +5,19 @@ import 'package:dinnytable/view/demo.dart';
 import 'package:dinnytable/view/home_client.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> login(String email, String password) async {
-  try {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool isFirstLogin = prefs.getBool('first_login') ?? true;
-     
-    if (isFirstLogin) {
-     Get.to(FrostedGlassScreen());
-      await prefs.setBool('first_login', false);
-      return;
-    }
+  // try {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   bool isFirstLogin = prefs.getBool('first_login') ?? true;
+  //    print('Is First Login: $isFirstLogin');
+
+  //   if (isFirstLogin) {
+  //    Get.to(FrostedGlassScreen());
+  //     await prefs.setBool('first_login', false);
+  //     return;
+  //   }
     QuerySnapshot acceptedSnapshot = await FirebaseFirestore.instance
         .collection('approvedOne')
         .where('emailController', 
@@ -76,16 +77,16 @@ Future<void> login(String email, String password) async {
       backgroundColor: Colors.red,
       colorText: Colors.white,
     );
-    } catch (e) {
-    log("Error during login: $e");
-    Get.snackbar(
-      'Error',
-      'An unexpected error occurred. Please try again.',
-      snackPosition: SnackPosition.BOTTOM,
-      backgroundColor: Colors.red,
-      colorText: Colors.white,
-    );
+    // } catch (e) {
+    // log("Error during login: $e");
+    // Get.snackbar(
+    //   'Error',
+    //   'An unexpected error occurred. Please try again.',
+    //   snackPosition: SnackPosition.BOTTOM,
+    //   backgroundColor: Colors.red,
+    //   colorText: Colors.white,
+    // );
   }
-}
+
 
 

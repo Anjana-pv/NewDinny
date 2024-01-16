@@ -69,7 +69,7 @@ class ClientHomescreen extends StatelessWidget {
                     
                       child: InkWell(
                         onTap: (){
-                          Get.to( FrostedGlassScreen());
+                       
                         },
                   child: smallContainer("Bookings",)),
                   ),
