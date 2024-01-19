@@ -1,28 +1,17 @@
-import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dinnytable/controller/firebase/signin_auth.dart';
-import 'package:dinnytable/view/demo.dart';
 import 'package:dinnytable/view/home_client.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> login(String email, String password) async {
-  // try {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   bool isFirstLogin = prefs.getBool('first_login') ?? true;
-  //    print('Is First Login: $isFirstLogin');
-
-  //   if (isFirstLogin) {
-  //    Get.to(FrostedGlassScreen());
-  //     await prefs.setBool('first_login', false);
-  //     return;
-  //   }
+  
     QuerySnapshot acceptedSnapshot = await FirebaseFirestore.instance
         .collection('approvedOne')
-        .where('emailController', 
+        .where('email', 
         isEqualTo: regcontroller.email.text)
-        .where('passwordController',
+        .where('password',
        isEqualTo: regcontroller.password.text) 
         .get();
 
@@ -36,7 +25,7 @@ Future<void> login(String email, String password) async {
     }
      QuerySnapshot rejectedSnapshot = await FirebaseFirestore.instance
         .collection('rejected')
-        .where('emailController', 
+        .where('email', 
         isEqualTo: email)
         .get();
  
@@ -55,7 +44,7 @@ Future<void> login(String email, String password) async {
     
     QuerySnapshot clientDetailSnapshot = await FirebaseFirestore.instance
         .collection('clientdetail')
-        .where('emailController', isEqualTo: email)
+        .where('email', isEqualTo: email)
         .get();
 
     if (clientDetailSnapshot.docs.isNotEmpty) {

@@ -1,9 +1,8 @@
 
+import 'dart:math';
+
 import 'package:dinnytable/controller/firebase/add_pdf.dart';
-import 'package:dinnytable/controller/firebase/signin_auth.dart';
-import 'package:dinnytable/models/client_reg_model.dart';
-import 'package:dinnytable/view/demo.dart';
-import 'package:dinnytable/view/login.dart';
+import 'package:dinnytable/view/table_count.dart';
 import 'package:dinnytable/widget.dart/card.dart';
 import 'package:dinnytable/widget.dart/resuable_widgets.dart';
 import 'package:flutter/material.dart';
@@ -21,31 +20,32 @@ class AddDocuments extends StatelessWidget {
     required this.city,
     required this.totalSeats,
     required this.typeResturent,
-    required this.workHours,
     required this.imageUrls,
-    this.username,
-    this.password, 
-    this.email,
+    required this.username,
+    required this.password, 
+    required  this.email,
+    required this.startingtime, 
+   required this.endingTime,
    
   });
 
   final String? resturentName;
   final String? ownerName;
   final String? address;
-  final String? city;
-  final String? workHours;
+  final String? city;  
   final String? totalSeats;
   final String? typeResturent;
   final String? imageUrls;
   final String? username;
   final String? password;
   final String? email;
-  
+  final String? startingtime;
+  final String? endingTime;
 
 
   @override
   Widget build(BuildContext context) {
-  //   Clientcontroller regcontroller = Get.put(Clientcontroller());
+      //  Clientcontroller regcontroller = Get.put(Clientcontroller());
     
     return Scaffold(
       appBar: const CustomAppBar(
@@ -127,35 +127,32 @@ class AddDocuments extends StatelessWidget {
                 ),
               ),
                sized10,
-                    Text(" * Please provide a PDF containing your valid documentation."),
+                    const Text(" * Please provide a PDF containing your valid documentation."),
               sized30,
               ElevatedButton(
                 onPressed: () async {
-                  //  bool imagesAdded = await pickImagesAndUpload(cardUrls);
-                  // bool pdfAdded = await pickAndUploadPdf(pdfUrls);
-
-                  // if (imagesAdded && pdfAdded) {
-                  //   print("Images and PDFs added successfully!");
-                  // } else {
-                  //   print("Failed to add Images and/or PDFs.");
-                  // }
-
+                   print(username);
+                   print(password);
+                    print(startingtime);
+                    print(endingTime);
+                    print(email);
                   Get.to(FrostedGlassScreen(
-                            resturentName: resturentName,
+                            resturentName:  resturentName,
                              ownerName: ownerName, 
                              address: address, 
-                             city: city,
-                              workHours: workHours, 
+                             city: city,                            
                               totalSeats: totalSeats,
                                typeResturent: typeResturent,
                                 imageUrls: imageUrls, 
                                 username: username,
                                  password: password, 
-                                 email: email,
-                                  t1: "",
-                                   t2: "", 
-                                   t3: "",
-                                    t4: ""));
+                                 email: email, 
+                                 endingTime:endingTime , 
+                                 startingtime: startingtime,
+                                  ));
+
+                             
+                              
                 },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(

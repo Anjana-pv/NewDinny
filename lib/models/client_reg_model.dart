@@ -6,7 +6,8 @@ class ClientRegModel {
   final String city;
   final String type;
   final String seatCount;
-  final String workingHours;
+  final String staringtime;
+  final String endingTime;
   final String profileImage;
   final String pdf;
   final List   menuCards;
@@ -26,7 +27,8 @@ final  String? t3;
       required this.city,
       required this.type,
       required this.seatCount,
-      required this.workingHours,
+      required this.staringtime,
+      required this.endingTime,
       required this.profileImage,
       required this.pdf,
       required this.menuCards,
@@ -36,7 +38,8 @@ final  String? t3;
         required this.t1,
             required  this.t2,
            required this.t3,
-             required this.t4,
+             required this.t4, 
+             
  
       });
 

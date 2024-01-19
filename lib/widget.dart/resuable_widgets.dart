@@ -10,7 +10,7 @@ const sized30 = SizedBox(height: 30);
 const sized50 = SizedBox(height: 50);
 
 class Customtextfeild extends StatelessWidget {
-   Customtextfeild({
+   const Customtextfeild({
     Key? key,
     required this.controller,
     required this.hintText,
@@ -28,7 +28,6 @@ class Customtextfeild extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 20),
       child: TextFormField(

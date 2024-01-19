@@ -1,9 +1,7 @@
-import 'package:dinnytable/view/booking_screen.dart';
-import 'package:dinnytable/view/demo.dart';
 import 'package:dinnytable/widget.dart/container.dart';
 import 'package:dinnytable/widget.dart/resuable_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+
 
 class ClientHomescreen extends StatelessWidget {
   const ClientHomescreen({super.key});

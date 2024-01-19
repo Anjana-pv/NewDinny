@@ -5,10 +5,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
-
-
-
 class Clientcontroller extends GetxController {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -17,14 +13,15 @@ class Clientcontroller extends GetxController {
   TextEditingController ownerName = TextEditingController();
   TextEditingController address = TextEditingController();
   TextEditingController city = TextEditingController();
-  TextEditingController workHours = TextEditingController();
+ TextEditingController startTimeController = TextEditingController();
+ TextEditingController endTimeController = TextEditingController();
   TextEditingController totalSeats = TextEditingController();
   TextEditingController typeResturent = TextEditingController();
-  TextEditingController t1= TextEditingController();
-TextEditingController t2 = TextEditingController();
-TextEditingController t3= TextEditingController();
-TextEditingController t4 = TextEditingController();
- 
+  TextEditingController t1 = TextEditingController();
+  TextEditingController t2 = TextEditingController();
+  TextEditingController t3 = TextEditingController();
+  TextEditingController t4 = TextEditingController();
+
   File? imageFile;
 
   var loginlist = RxList<ClientRegModel>();
@@ -34,23 +31,24 @@ TextEditingController t4 = TextEditingController();
 
   Future<bool> addContact(ClientRegModel clientinfo) async {
     Map<String, dynamic> clietRegMap = {
-      "emailController": clientinfo.email,
-      "passwordController": clientinfo.password,
-      "userController": clientinfo.username,
+      "email": clientinfo.email,
+      "password": clientinfo.password,
+      "username": clientinfo.username,
       'restaurantName': clientinfo.restaurantName,
       'owner': clientinfo.owner,
       'address': clientinfo.address,
       'city': clientinfo.city,
       'type': clientinfo.type,
       'seatCount': clientinfo.seatCount,
-      'workingHours': clientinfo.workingHours,
+      'startingtime': clientinfo.staringtime,
+      'endingtime': clientinfo.endingTime,
       'profileImage': clientinfo.profileImage,
       'pdf': clientinfo.pdf,
       'menuCards': clientinfo.menuCards,
-       't1':clientinfo.t1,
-      't2':clientinfo.t2,
-      't3':clientinfo.t3,
-      't4':clientinfo.t4
+      't1': clientinfo.t1,
+      't2': clientinfo.t2,
+      't3': clientinfo.t3,
+      't4': clientinfo.t4
     };
     try {
       await FirebaseFirestore.instance
@@ -71,11 +69,8 @@ TextEditingController t4 = TextEditingController();
     obscureText.toggle();
   }
 
-Future<bool> addtable(Tablemodel tabledata) async {
-    Map<String, dynamic> tablemodel = {
-     
-     
-    };
+  Future<bool> addtable(Tablemodel tabledata) async {
+    Map<String, dynamic> tablemodel = {};
     try {
       await FirebaseFirestore.instance
           .collection('approvedOne')
@@ -87,14 +82,10 @@ Future<bool> addtable(Tablemodel tabledata) async {
     }
   }
 
+  Future<void> getdatas() async {}
 
- Future <void> getdatas()async{
-  
- }
-
-
-
-  Future<void> updateContact(String documentId, ClientRegModel updatedData) async {
+  Future<void> updateContact(
+      String documentId, ClientRegModel updatedData) async {
     Map<String, dynamic> updatedMap = {
       "emailController": updatedData.email,
       "passwordController": updatedData.password,
@@ -105,7 +96,8 @@ Future<bool> addtable(Tablemodel tabledata) async {
       'city': updatedData.city,
       'type': updatedData.type,
       'seatCount': updatedData.seatCount,
-      'workingHours': updatedData.workingHours,
+      'startingtime': updatedData.staringtime,
+      'endingtime': updatedData.endingTime,
       'profileImage': updatedData.profileImage,
       'pdf': updatedData.pdf,
       'menuCards': updatedData.menuCards,
@@ -125,10 +117,4 @@ Future<bool> addtable(Tablemodel tabledata) async {
       print('Error updating document: $e');
     }
   }
-
-
 }
-
-
-
-

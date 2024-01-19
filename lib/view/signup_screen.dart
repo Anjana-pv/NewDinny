@@ -100,6 +100,7 @@ class SignUp extends StatelessWidget {
                     sized20,
                     ElevatedButton(
                         onPressed: () async {
+                          
                           if (formKey.currentState?.validate() ?? false) {
                             if (!isValidEmail(clientcontroller.email.text)) {
                               Get.snackbar(
@@ -114,7 +115,6 @@ class SignUp extends StatelessWidget {
                               );
                               return;
                             }
-
                             if (clientcontroller.password.text.length < 1) {
                               Get.snackbar(
                                 ' Error',
@@ -131,12 +131,12 @@ class SignUp extends StatelessWidget {
 
                             QuerySnapshot emailSnapshot = await firestore
                                 .collection('clientdetail')
-                                .where('emailController',
+                                .where('email',
                                     isEqualTo: clientcontroller.email.text)
                                 .get();
                             QuerySnapshot usernameSnapshot = await firestore
                                 .collection('clientdetail')
-                                .where('userController',
+                                .where('user',
                                     isEqualTo: clientcontroller.user.text)
                                 .get();
 
@@ -157,9 +157,18 @@ class SignUp extends StatelessWidget {
                                 username: clientcontroller.user.text,
                                 password: clientcontroller.password.text,
                                 email: clientcontroller.email.text,
-                              ));
+                                 
+                              ),
+                              
+                              
+                              );
+                               clientcontroller.user.clear();
+                               clientcontroller.password.clear();
+                               clientcontroller.email.clear();
                             }
                           }
+                           
+                              
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(

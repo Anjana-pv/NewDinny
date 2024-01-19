@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 import 'package:dinnytable/controller/controllers/cient_controller.dart';
 
@@ -8,57 +9,47 @@ import 'package:dinnytable/widget.dart/resuable_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
-final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-
 class FrostedGlassScreen extends StatelessWidget {
-  
-FrostedGlassScreen({
-    super.key, 
-  required  this.resturentName, 
-  required  this.ownerName, 
-  required  this.address,
-  required   this.city,
-  required    this.workHours,
-  required     this.totalSeats, 
-   required    this.typeResturent, 
-   required    this.imageUrls, 
-   required    this.username, 
-   required    this.password, 
-    required   this.email,
-    required    this.t1, 
-    required    this.t2, 
-    required    this.t3, 
-    required    this.t4});
-         final String? resturentName;
+  FrostedGlassScreen({
+    super.key,
+    required this.resturentName,
+    required this.ownerName,
+    required this.address,
+    required this.city,
+    required this.totalSeats,
+    required this.typeResturent,
+    required this.imageUrls,
+    required this.username,
+    required this.password,
+    required this.email,
+    required this.endingTime,
+    required this.startingtime
+  });
+  final String? resturentName;
   final String? ownerName;
   final String? address;
   final String? city;
-  final String? workHours;
+  
   final String? totalSeats;
   final String? typeResturent;
   final String? imageUrls;
   final String? username;
   final String? password;
   final String? email;
-  final String? t1;
-  final String? t2;
-  final String? t3;
-  final String? t4;
-  
- Clientcontroller regcontroller = Clientcontroller();
+  final String? startingtime;
+  final String? endingTime;
+
+  Clientcontroller regcontroller = Clientcontroller();
 
   @override
   Widget build(BuildContext context) {
-   
+    final GlobalKey<FormState> tableformKey = GlobalKey<FormState>();
     return Scaffold(
       body: SingleChildScrollView(
         child: Stack(
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 300),
-
               child: Container(
                 decoration: const BoxDecoration(
                   image: DecorationImage(
@@ -74,10 +65,10 @@ FrostedGlassScreen({
                 ),
               ),
             ),
-        
+
             // Centered Card
             Form(
-              key: formKey,
+              key: tableformKey,
               child: Center(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 200),
@@ -98,7 +89,8 @@ FrostedGlassScreen({
                             padding: EdgeInsets.only(top: 10),
                             child: Text(
                               "🍽️ To enhancing  dining experience! Could you share the number of tables at your place? ",
-                              style: TextStyle(fontSize: 17, color: Colors.white),
+                              style:
+                                  TextStyle(fontSize: 17, color: Colors.white),
                             ),
                           ),
                           sized10,
@@ -114,7 +106,7 @@ FrostedGlassScreen({
                           sized30,
                           Tabletextfeild(
                               text: "Four-Top  :     \n (4 Seats) ",
-                              controller:regcontroller.t2),
+                              controller: regcontroller.t2),
                           sized30,
                           Tabletextfeild(
                               text: "Six-Top    :      \n (6 Seats)",
@@ -126,13 +118,16 @@ FrostedGlassScreen({
                           sized30,
                           ElevatedButton(
                             onPressed: () async {
-                              if (formKey.currentState?.validate() ?? false) {
-                                
+                              if (tableformKey.currentState?.validate() ??
+                                  false) {
                                 onSubmit();
-                                regcontroller.email.clear();
-                                regcontroller.password.clear();
-                           
-                               }
+                               print(username);
+                               print(password);
+                               print(email);
+                               print(startingtime);
+                               print(endingTime);
+                               
+                              }
                              },
                             child: const Text('Click me'),
                           ),
@@ -148,11 +143,19 @@ FrostedGlassScreen({
       ),
     );
   }
-   Future<void> onSubmit() async {
-    if (resturentName == null ||ownerName == null ||
-        address == null ||city == null || totalSeats == null ||
-        typeResturent == null || workHours == null || imageUrls == null ||
-        cardUrls.isEmpty || pdfUrls.value.isEmpty||t1==null||t2==null||t3==null||t4==null) {
+
+  Future<void> onSubmit() async {
+    if (resturentName == null ||
+        ownerName == null ||
+        address == null ||
+        city == null ||
+        totalSeats == null ||
+        typeResturent == null ||
+        startingtime == null ||
+        endingTime==null||
+        imageUrls == null ||
+        cardUrls.isEmpty ||
+        pdfUrls.value.isEmpty) {
       Get.snackbar(
         'Error',
         'All fields must be filled and documents must be added.',
@@ -165,22 +168,29 @@ FrostedGlassScreen({
     }
 
     final clientData = ClientRegModel(
-      restaurantName: resturentName!, owner: ownerName!,
-      address: address!,city: city!,
-      type: typeResturent!, seatCount: totalSeats!,
-      workingHours: workHours!,profileImage: imageUrls!,
-      pdf: pdfUrls.value,menuCards: cardUrls,
-      username: username!,password: password!,
+      restaurantName: resturentName!,
+      owner: ownerName!,
+      address: address!,
+      city: city!,
+      type: typeResturent!,
+      seatCount: totalSeats!, 
+      profileImage: imageUrls!,
+      pdf: pdfUrls.value,
+      menuCards: cardUrls,
+      username: username!,
+      password: password!,
       email: email!,
-       t1:t1! ,
-        t2: t2!,
-         t3: t3!, 
-         t4: t4!,
+      t1: regcontroller.t1.text,
+      t2: regcontroller.t2.text,
+      t3: regcontroller.t3.text,
+      t4: regcontroller.t4.text,
+       staringtime:startingtime!,
+       endingTime:endingTime! ,
     );
+    log('$email');
+        final bool response = await regcontroller.addContact(clientData);
 
-    final bool response = await regcontroller.addContact(clientData);
-
-    if (response) { 
+    if (response) {
       Get.snackbar(
         'Success',
         'Registration successful!',
@@ -189,16 +199,15 @@ FrostedGlassScreen({
         backgroundColor: Colors.green,
         colorText: Colors.white,
       );
-      regcontroller.email.clear();
-      regcontroller.password.clear();
-      regcontroller.address.clear();
-      regcontroller.city.clear();
-     regcontroller.workHours.clear();
-      regcontroller.resturentName.clear();
-      regcontroller.ownerName.clear();
-      regcontroller.typeResturent.clear();
-      regcontroller.totalSeats.clear();
-      regcontroller.user.clear();
+                                regcontroller.email.clear();
+                                regcontroller.password.clear();
+                                regcontroller.address.clear();
+                                regcontroller.city.clear();          
+                                regcontroller.resturentName.clear();
+                                regcontroller.ownerName.clear();
+                                regcontroller.typeResturent.clear();
+                                regcontroller.totalSeats.clear();
+                                regcontroller.user.clear();
 
       Get.to(const LoginScreen());
     } else {
@@ -211,5 +220,5 @@ FrostedGlassScreen({
         colorText: Colors.white,
       );
     }
-}
+  }
 }
