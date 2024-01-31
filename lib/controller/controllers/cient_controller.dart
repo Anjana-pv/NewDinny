@@ -1,9 +1,11 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dinnytable/models/client_reg_model.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Clientcontroller extends GetxController {
   TextEditingController email = TextEditingController();
@@ -28,6 +30,9 @@ class Clientcontroller extends GetxController {
   final db = FirebaseFirestore.instance;
   final storage = FirebaseStorage.instance;
   RxBool obscureText = true.obs;
+
+  Stream<QuerySnapshot> bookingstream = const Stream.empty();
+
 
   Future<bool> addContact(ClientRegModel clientinfo) async {
     Map<String, dynamic> clietRegMap = {
@@ -117,4 +122,22 @@ class Clientcontroller extends GetxController {
       print('Error updating document: $e');
     }
   }
+   Stream<QuerySnapshot<Object?>> getbooking(String id) {
+    final CollectionReference studentCollection = FirebaseFirestore.instance
+        .collection('approvedOne')
+        .doc(id)
+        .collection('bookings');
+    final studentsStream = studentCollection.snapshots();
+    return studentsStream;
+  }
+  Future<void> fetchDatas() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? id = prefs.getString('resturent_id');
+ 
+  bookingstream= getbooking(id as String);
+  log('$bookingstream');
+
+
+  }
+
 }

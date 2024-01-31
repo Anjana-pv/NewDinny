@@ -10,26 +10,24 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class FrostedGlassScreen extends StatelessWidget {
-  FrostedGlassScreen({
-    super.key,
-    required this.resturentName,
-    required this.ownerName,
-    required this.address,
-    required this.city,
-    required this.totalSeats,
-    required this.typeResturent,
-    required this.imageUrls,
-    required this.username,
-    required this.password,
-    required this.email,
-    required this.endingTime,
-    required this.startingtime
-  });
+  FrostedGlassScreen(
+      {super.key,
+      required this.resturentName,
+      required this.ownerName,
+      required this.address,
+      required this.city,
+      required this.totalSeats,
+      required this.typeResturent,
+      required this.imageUrls,
+      required this.username,
+      required this.password,
+      required this.email,
+      required this.endingTime,
+      required this.startingtime});
   final String? resturentName;
   final String? ownerName;
   final String? address;
   final String? city;
-  
   final String? totalSeats;
   final String? typeResturent;
   final String? imageUrls;
@@ -39,7 +37,7 @@ class FrostedGlassScreen extends StatelessWidget {
   final String? startingtime;
   final String? endingTime;
 
-  Clientcontroller regcontroller = Clientcontroller();
+  final Clientcontroller regcontroller = Get.put(Clientcontroller());
 
   @override
   Widget build(BuildContext context) {
@@ -121,14 +119,8 @@ class FrostedGlassScreen extends StatelessWidget {
                               if (tableformKey.currentState?.validate() ??
                                   false) {
                                 onSubmit();
-                               print(username);
-                               print(password);
-                               print(email);
-                               print(startingtime);
-                               print(endingTime);
-                               
                               }
-                             },
+                            },
                             child: const Text('Click me'),
                           ),
                         ],
@@ -152,7 +144,7 @@ class FrostedGlassScreen extends StatelessWidget {
         totalSeats == null ||
         typeResturent == null ||
         startingtime == null ||
-        endingTime==null||
+        endingTime == null ||
         imageUrls == null ||
         cardUrls.isEmpty ||
         pdfUrls.value.isEmpty) {
@@ -173,7 +165,7 @@ class FrostedGlassScreen extends StatelessWidget {
       address: address!,
       city: city!,
       type: typeResturent!,
-      seatCount: totalSeats!, 
+      seatCount: totalSeats!,
       profileImage: imageUrls!,
       pdf: pdfUrls.value,
       menuCards: cardUrls,
@@ -184,11 +176,11 @@ class FrostedGlassScreen extends StatelessWidget {
       t2: regcontroller.t2.text,
       t3: regcontroller.t3.text,
       t4: regcontroller.t4.text,
-       staringtime:startingtime!,
-       endingTime:endingTime! ,
+      staringtime: startingtime!,
+      endingTime: endingTime!,
     );
     log('$email');
-        final bool response = await regcontroller.addContact(clientData);
+    final bool response = await regcontroller.addContact(clientData);
 
     if (response) {
       Get.snackbar(
@@ -199,17 +191,17 @@ class FrostedGlassScreen extends StatelessWidget {
         backgroundColor: Colors.green,
         colorText: Colors.white,
       );
-                                regcontroller.email.clear();
-                                regcontroller.password.clear();
-                                regcontroller.address.clear();
-                                regcontroller.city.clear();          
-                                regcontroller.resturentName.clear();
-                                regcontroller.ownerName.clear();
-                                regcontroller.typeResturent.clear();
-                                regcontroller.totalSeats.clear();
-                                regcontroller.user.clear();
+      regcontroller.email.clear();
+      regcontroller.password.clear();
+      regcontroller.address.clear();
+      regcontroller.city.clear();
+      regcontroller.resturentName.clear();
+      regcontroller.ownerName.clear();
+      regcontroller.typeResturent.clear();
+      regcontroller.totalSeats.clear();
+      regcontroller.user.clear();
 
-      Get.to(const LoginScreen());
+      Get.to(LoginScreen());
     } else {
       Get.snackbar(
         'Error',

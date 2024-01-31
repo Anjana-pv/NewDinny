@@ -4,6 +4,7 @@ import 'package:dinnytable/controller/firebase/signin_auth.dart';
 import 'package:dinnytable/view/home_client.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> login(String email, String password) async {
   
@@ -17,6 +18,11 @@ Future<void> login(String email, String password) async {
 
    
     if (acceptedSnapshot.docs.isNotEmpty) {
+      final DocumentSnapshot resturentDoc = acceptedSnapshot.docs.first;
+      final String resturentId=resturentDoc.id;
+       SharedPreferences prefsTeacherId =
+            await SharedPreferences.getInstance();
+        prefsTeacherId.setString('resturent_id', resturentId);
       Get.off(const ClientHomescreen());
       regcontroller.email.clear();
       regcontroller.password.clear();

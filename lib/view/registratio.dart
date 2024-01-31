@@ -14,6 +14,7 @@ import 'package:image_picker/image_picker.dart';
 RxString imageurl = ''.obs;
 XFile image = XFile('');
 String downloadUrlImage = '';
+    final  formKeyNew = GlobalKey<FormState>(); 
 
 class RegistrationScreen extends StatelessWidget {
   const RegistrationScreen({
@@ -27,9 +28,9 @@ class RegistrationScreen extends StatelessWidget {
   final String? email;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
+      final double screenWidth = MediaQuery.of(context).size.width;
     Clientcontroller regcontroller = Get.put(Clientcontroller());
-    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 244, 245, 244),
         appBar: const CustomAppBar(
@@ -39,7 +40,7 @@ class RegistrationScreen extends StatelessWidget {
         body: Obx(() {
           return SingleChildScrollView(
               child: Form(
-            key: formKey,
+            key: formKeyNew,
             child: Center(
               child: Column(
                 children: [
@@ -51,7 +52,7 @@ class RegistrationScreen extends StatelessWidget {
                         width: 130,
                         height: 130,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(0.0),
+                         borderRadius: BorderRadius.circular(20.0),
                           shape: BoxShape.rectangle,
                           border: Border.all(
                             color: const Color.fromARGB(255, 37, 72, 38),
@@ -67,9 +68,25 @@ class RegistrationScreen extends StatelessWidget {
                                   ),
                                 ),
                               )
-                            : Image.file(
-                                File(imageurl.value),
-                                fit: BoxFit.cover,
+                           
+                                : Container(
+                                 width: screenWidth * 0.35,
+                                  height: screenWidth * 0.35,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  shape: BoxShape.rectangle,
+                                  border: Border.all(
+                                    color:
+                                        const Color.fromARGB(255, 37, 72, 38),
+                                  ),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  child: Image.file(
+                                    File(imageurl.value),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                               ),
                       ),
                     ),
@@ -136,7 +153,7 @@ class RegistrationScreen extends StatelessWidget {
                       children: [
                         ElevatedButton(
                             onPressed: () async {
-                              if (formKey.currentState?.validate() ?? false) {
+                              if (formKeyNew.currentState?.validate() ?? false) {
                                 if (!validateFields(regcontroller)) {
                                   return;
                                 }

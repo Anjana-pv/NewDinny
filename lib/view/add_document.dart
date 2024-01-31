@@ -1,6 +1,3 @@
-
-import 'dart:math';
-
 import 'package:dinnytable/controller/firebase/add_pdf.dart';
 import 'package:dinnytable/view/table_count.dart';
 import 'package:dinnytable/widget.dart/card.dart';

@@ -67,7 +67,7 @@ class SignUp extends StatelessWidget {
                       hintText: 'Password',
                       controller: clientcontroller.password,
                       icon: const Icon(
-                        Icons.mail,
+                        Icons.lock,
                       ),
                       obscureText: false,
                       keyboardType: TextInputType.text
@@ -158,9 +158,7 @@ class SignUp extends StatelessWidget {
                                 password: clientcontroller.password.text,
                                 email: clientcontroller.email.text,
                                  
-                              ),
-                              
-                              
+                              ), 
                               );
                                clientcontroller.user.clear();
                                clientcontroller.password.clear();
