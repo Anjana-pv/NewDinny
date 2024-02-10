@@ -3,34 +3,24 @@ import 'package:dinnytable/controller/controllers/cient_controller.dart';
 import 'package:dinnytable/widget.dart/card.dart';
 import 'package:dinnytable/widget.dart/resuable_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 
-class BookingScreen extends StatefulWidget {
-  const BookingScreen({super.key});
-
-  @override
-  State<BookingScreen> createState() => _BookingScreenState();
-}
-
-class _BookingScreenState extends State<BookingScreen> {
-  Clientcontroller client = Clientcontroller();
-
-  @override
-  void initState() {
-    super.initState();
-    client.fetchDatas();
-  }
+class BookingScreen extends StatelessWidget {
+   const BookingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+     Clientcontroller client = Get.put( Clientcontroller());
     return Scaffold(
-      appBar: const CustomAppBar(
+      appBar:  const CustomAppBar(
         title: "Booking List",
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
+      
       ),
-      backgroundColor: Colors.grey,
-      body: StreamBuilder<QuerySnapshot>(
-        stream:  client.bookingstream ,
+      backgroundColor: Color.fromARGB(255, 226, 226, 226),
+      body:Obx(() =>  StreamBuilder<QuerySnapshot>(
+        stream:  client.bookingStream.value ,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const SizedBox(
@@ -40,35 +30,38 @@ class _BookingScreenState extends State<BookingScreen> {
             return Text('Error: ${snapshot.error}');
           } else if (snapshot.hasData) {
             List<DocumentSnapshot> bookingDetail = snapshot.data!.docs;
-            return Padding(
-              padding: const EdgeInsets.only(left: 12.0),
-              child: ListView.builder(
-                itemBuilder: (context, index) {
-                  var bookingData =
-                      bookingDetail[index].data() as Map<String, dynamic>;
-
-                  String user = bookingData[' user_name']?? ''; 
-                  var bookingDate = bookingData[' date']??'';
-                  var userInfo = bookingData['phone_number']??'';
-                  var guestCount = bookingData['guest_count']??'';
-                  var bookingTime = bookingData[' time']??'';
+            return ListView.builder(
+             
+              itemBuilder: (context, index) {
+                var bookingData =
+                    bookingDetail[index].data() as Map<String, dynamic>;
+            
+                String user = bookingData[' user_name']?? ''; 
+                var bookingDate = bookingData[' date']??'';
+                var userInfo = bookingData['phone_number']??'';
+                var guestCount = bookingData['guest_count']??'';
+                var bookingTime = bookingData[' time']??'';
+                
+            
+            
+                return Padding(
+                  padding: const EdgeInsets.all(6.0),
                   
-
-
-                  return Card(
-                    elevation: 4.0,
-
-                    margin: const EdgeInsets.all(8.0),
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      height: MediaQuery.of(context).size.height * 0.15,
-
-                      decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 246, 246, 246),
-                      ),
+                  child: Card(
+                    surfaceTintColor: Colors.white,
+                    elevation: 8.2,
+                  
+                   
+                    child: SizedBox(
+                     
+                       height: MediaQuery.of(context).size.height * 0.17,
+                  
+                  
+                     
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
+                        padding: const EdgeInsets.all(12.0),
                         child: Column(
+                  
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
@@ -80,25 +73,25 @@ class _BookingScreenState extends State<BookingScreen> {
                             ),
                             sized10,
                             Text(
-                              "Username: $user",
+                              "Username : $user",
                               style: const TextStyle(
                                 fontSize: 14.0,
                               ),
                             ),
                             Text(
-                              'Geust Count:  $guestCount',
+                              'Geust Count : $guestCount',
                               style: const TextStyle(fontSize: 14.0),
                             ),
                             Text(
-                              'User Info:  $userInfo',
+                              'Contact Number : $userInfo',
                               style: const TextStyle(fontSize: 14.0),
                             ),
                              Text(
-                                    'Time: $bookingTime',
+                                    'Selected Time : $bookingTime',
                                     style: const TextStyle(fontSize: 14.0),
                                   ),
                           
-
+                        
                           Padding(
                             padding: const EdgeInsets.only(right:40 ),
                             child: Row(
@@ -118,10 +111,10 @@ class _BookingScreenState extends State<BookingScreen> {
                         ),
                       ),
                     ),
-                  );
-                },
-                itemCount: bookingDetail.length,
-              ),
+                  ),
+                );
+              },
+              itemCount: bookingDetail.length,
             );
           } else {
             return const SizedBox(
@@ -129,7 +122,7 @@ class _BookingScreenState extends State<BookingScreen> {
             );
           }
         },
-      ),
+      ),)
     );
   }
 }

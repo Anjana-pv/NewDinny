@@ -31,9 +31,21 @@ class Clientcontroller extends GetxController {
   final storage = FirebaseStorage.instance;
   RxBool obscureText = true.obs;
 
-  Stream<QuerySnapshot> bookingstream = const Stream.empty();
+  
+
+   final Rx<Stream<QuerySnapshot<Object?>>> bookingStream =
+      Rx<Stream<QuerySnapshot<Object?>>>(const Stream.empty());
+
+     
 
 
+ @override
+  void onInit() {
+    super.onInit();
+  fetchDatas();
+
+  
+  }
   Future<bool> addContact(ClientRegModel clientinfo) async {
     Map<String, dynamic> clietRegMap = {
       "email": clientinfo.email,
@@ -132,12 +144,13 @@ class Clientcontroller extends GetxController {
   }
   Future<void> fetchDatas() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? id = prefs.getString('resturent_id');
+    final id = prefs.getString('resturent_id');
  
-  bookingstream= getbooking(id as String);
-  log('$bookingstream');
+  bookingStream.value = getbooking(id!);
+  log('$bookingStream');
 
 
   }
+  
 
 }
