@@ -2,8 +2,11 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dinnytable/controller/controllers/offer_controller.dart';
+import 'package:dinnytable/controller/controllers/profile_controller.dart';
+import 'package:dinnytable/view/cancel_screen.dart';
 import 'package:dinnytable/view/menu_scree.dart';
 import 'package:dinnytable/view/booking_screen.dart';
+import 'package:dinnytable/view/profile.dart';
 import 'package:dinnytable/widget.dart/container.dart';
 import 'package:dinnytable/widget.dart/resuable_widgets.dart';
 import 'package:flutter/material.dart';
@@ -78,8 +81,13 @@ class ClientHomescreen extends StatelessWidget {
                       Positioned(
                         top: 30,
                         right: 30,
-                        child: smallContainer(
-                          "Profile",
+                        child: InkWell(
+                        onTap: (){
+                          Get.to(()=>ProfileScreen());
+                          },
+                          child: smallContainer(
+                            "Profile",
+                          ),
                         ),
                       ),
                       Positioned(
@@ -206,7 +214,11 @@ class ClientHomescreen extends StatelessWidget {
                       Positioned(
                         bottom: 30,
                         right: 30,
-                        child: smallContainer("Cancel"),
+                        child: InkWell(
+                          onTap: (){
+                            Get.to(CancelScreen());
+                          },
+                          child: smallContainer("Cancelled \n     Data")),
                       ),
                     ],
                   ),

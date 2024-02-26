@@ -15,8 +15,8 @@ class Clientcontroller extends GetxController {
   TextEditingController ownerName = TextEditingController();
   TextEditingController address = TextEditingController();
   TextEditingController city = TextEditingController();
- TextEditingController startTimeController = TextEditingController();
- TextEditingController endTimeController = TextEditingController();
+  TextEditingController startTimeController = TextEditingController();
+  TextEditingController endTimeController = TextEditingController();
   TextEditingController totalSeats = TextEditingController();
   TextEditingController typeResturent = TextEditingController();
   TextEditingController t1 = TextEditingController();
@@ -31,21 +31,15 @@ class Clientcontroller extends GetxController {
   final storage = FirebaseStorage.instance;
   RxBool obscureText = true.obs;
 
-  
-
-   final Rx<Stream<QuerySnapshot<Object?>>> bookingStream =
+  final Rx<Stream<QuerySnapshot<Object?>>> bookingStream =
       Rx<Stream<QuerySnapshot<Object?>>>(const Stream.empty());
 
-     
-
-
- @override
+  @override
   void onInit() {
     super.onInit();
-  fetchDatas();
-
-  
+    fetchDatas();
   }
+
   Future<bool> addContact(ClientRegModel clientinfo) async {
     Map<String, dynamic> clietRegMap = {
       "email": clientinfo.email,
@@ -127,14 +121,15 @@ class Clientcontroller extends GetxController {
     try {
       await FirebaseFirestore.instance
           .collection('approvedOne')
-          .doc(documentId) // Provide the document ID you want to update
+          .doc(documentId)
           .update(updatedMap);
       print('Document updated successfully');
     } catch (e) {
       print('Error updating document: $e');
     }
   }
-   Stream<QuerySnapshot<Object?>> getbooking(String id) {
+
+  Stream<QuerySnapshot<Object?>> getbooking(String id) {
     final CollectionReference studentCollection = FirebaseFirestore.instance
         .collection('approvedOne')
         .doc(id)
@@ -142,15 +137,12 @@ class Clientcontroller extends GetxController {
     final studentsStream = studentCollection.snapshots();
     return studentsStream;
   }
+
   Future<void> fetchDatas() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final id = prefs.getString('resturent_id');
- 
-  bookingStream.value = getbooking(id!);
-  log('$bookingStream');
 
-
+    bookingStream.value = getbooking(id!);
+    log('$bookingStream');
   }
-  
-
 }
