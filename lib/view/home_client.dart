@@ -1,8 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
-
 import 'package:dinnytable/controller/controllers/offer_controller.dart';
-import 'package:dinnytable/controller/controllers/profile_controller.dart';
 import 'package:dinnytable/view/cancel_screen.dart';
 import 'package:dinnytable/view/menu_scree.dart';
 import 'package:dinnytable/view/booking_screen.dart';
@@ -83,7 +81,7 @@ class ClientHomescreen extends StatelessWidget {
                         right: 30,
                         child: InkWell(
                         onTap: (){
-                          Get.to(()=>ProfileScreen());
+                          Get.to(()=>const ProfileScreen());
                           },
                           child: smallContainer(
                             "Profile",

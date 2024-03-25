@@ -101,9 +101,7 @@ class NavBar extends StatelessWidget {
     await FirebaseAuth.instance.signOut();
     
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    await preferences.remove('resturent_id');
-
-    
+    await preferences.remove('resturent_id');  
     Get.offAll(LoginScreen());
   } catch (e) {
     print("Error signing out: $e");

@@ -72,15 +72,8 @@ Future<void> login(String email, String password) async {
       backgroundColor: Colors.red,
       colorText: Colors.white,
     );
-    // } catch (e) {
-    // log("Error during login: $e");
-    // Get.snackbar(
-    //   'Error',
-    //   'An unexpected error occurred. Please try again.',
-    //   snackPosition: SnackPosition.BOTTOM,
-    //   backgroundColor: Colors.red,
-    //   colorText: Colors.white,
-    // );
+   
+  
   }
 
 

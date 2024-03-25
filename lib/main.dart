@@ -1,5 +1,8 @@
 
+import 'package:dinnytable/view/home_client.dart';
 import 'package:dinnytable/view/login.dart';
+import 'package:dinnytable/view/splash_screen.dart';
+// import 'package:dinnytable/view/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,7 +25,11 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 24, 110, 57)),
           useMaterial3: true,
         ),
-        home: const LoginScreen()  ,
+        initialRoute: "/" ,
+         getPages: [
+          // GetPage(name: '/', page: () => const SplashScreen() ),
+        GetPage(name: '/', page: () => const LoginScreen() ),
+      ],
       );
     
   }

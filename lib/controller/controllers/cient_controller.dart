@@ -31,8 +31,7 @@ class Clientcontroller extends GetxController {
   final storage = FirebaseStorage.instance;
   RxBool obscureText = true.obs;
 
-  final Rx<Stream<QuerySnapshot<Object?>>> bookingStream =
-      Rx<Stream<QuerySnapshot<Object?>>>(const Stream.empty());
+  
 
   @override
   void onInit() {
@@ -129,20 +128,11 @@ class Clientcontroller extends GetxController {
     }
   }
 
-  Stream<QuerySnapshot<Object?>> getbooking(String id) {
-    final CollectionReference studentCollection = FirebaseFirestore.instance
-        .collection('approvedOne')
-        .doc(id)
-        .collection('bookings');
-    final studentsStream = studentCollection.snapshots();
-    return studentsStream;
-  }
-
-  Future<void> fetchDatas() async {
+ Future<void> fetchDatas() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final id = prefs.getString('resturent_id');
 
-    bookingStream.value = getbooking(id!);
-    log('$bookingStream');
+    
   }
+
 }
