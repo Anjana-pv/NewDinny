@@ -8,6 +8,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class OfferController extends GetxController {
   String imageUrl = '';
+  RxInt currectIndex = 0 .obs;
+
+  get image => null;
+  void onItemTapped(int index) {
+   
+      currectIndex.value = index;
+    
+  }
 
   Future <bool>uploadImage(String imageUrl) async {
     try {

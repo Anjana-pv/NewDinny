@@ -1,5 +1,6 @@
 
 import 'package:dinnytable/view/home_client.dart';
+import 'package:dinnytable/view/home_widget.dart';
 import 'package:dinnytable/view/login.dart';
 import 'package:dinnytable/view/splash_screen.dart';
 // import 'package:dinnytable/view/splash_screen.dart';
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
         initialRoute: "/" ,
          getPages: [
           // GetPage(name: '/', page: () => const SplashScreen() ),
-        GetPage(name: '/', page: () => const LoginScreen() ),
+        GetPage(name: '/', page: () => const ClientHomescreen() ), 
       ],
       );
     

@@ -1,12 +1,12 @@
 import 'dart:developer';
-import 'dart:io';
+import 'package:dinnytable/controller/controllers/booking_controller.dart';
 import 'package:dinnytable/controller/controllers/offer_controller.dart';
-import 'package:dinnytable/view/cancel_screen.dart';
+import 'package:dinnytable/controller/controllers/profile_controller.dart';
+import 'package:dinnytable/view/booking_widget.dart';
+import 'package:dinnytable/view/home_widget.dart';
 import 'package:dinnytable/view/menu_scree.dart';
-import 'package:dinnytable/view/booking_screen.dart';
 import 'package:dinnytable/view/profile.dart';
-import 'package:dinnytable/widget.dart/container.dart';
-import 'package:dinnytable/widget.dart/resuable_widgets.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -14,219 +14,103 @@ import 'package:image_picker/image_picker.dart';
 RxString imageurl = ''.obs;
 XFile image = XFile('');
 String downloadUrlImage = '';
+List<String> headings = ['Home', 'Bookings', 'Profile'];
 
 class ClientHomescreen extends StatelessWidget {
   const ClientHomescreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    OfferController offerInstance = Get.put(OfferController());
-    return Scaffold(
-      drawer: const NavBar(),
-      appBar: AppBar(
-        
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-        ),
-        title: const Text(
-          "Home",
-          style: TextStyle(color: Colors.white),
-        ),
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(206, 4, 52, 29),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 80),
-              child: Center(
-                child: Container(
-                  width: 270,
-                  height: 270,
-                  decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("assest/image 8.png"))),
-                ),
+    final OfferController offer = Get.put(OfferController());
+
+    BookingController bookings = Get.put(BookingController());
+    ProfileController profileInstance = Get.put(ProfileController());
+
+    return Obx(() => Scaffold(
+          drawer:offer.currectIndex.value==0? const NavBar():null, 
+          appBar: AppBar(
+            iconTheme: const IconThemeData(
+              color: Colors.white,
+            ),
+            title: Text(
+              offer.currectIndex.value == 0
+                  ? headings.first
+                  : offer.currectIndex.value == 1
+                      ? headings[1]
+                      : headings.last,
+              style: const TextStyle(color: Colors.white),
+            ),
+            centerTitle: true,
+            backgroundColor: const Color.fromARGB(206, 4, 52, 29),
+          ),
+          body: StreamBuilder(
+              stream: bookings.bookingStream.value,
+              builder: (context, bookingSnap) {
+                if (bookingSnap.hasData) {
+                  return StreamBuilder(
+                      stream: profileInstance.profileStream.value,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          List<Widget> widgetOptions = [
+                            const HomeWidget(),
+                            BookingsWidget(snapshot: bookingSnap),
+                            ProfileWidget(snapshot: snapshot),
+                          ];
+                          return widgetOptions
+                              .elementAt(offer.currectIndex.value);
+                        }
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const SizedBox(
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                  color: Colors.green),
+                            ),
+                          );
+                        } else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else {
+                          return const SizedBox(
+                            child:
+                                Text('Please Check your internet connection'),
+                          );
+                        }
+                      });
+                }
+                if (bookingSnap.connectionState == ConnectionState.waiting) {
+                  return const SizedBox(
+                    child: Center(
+                      child: CircularProgressIndicator(color: Colors.green),
+                    ),
+                  );
+                } else if (bookingSnap.hasError) {
+                  return Text('Error: ${bookingSnap.error}');
+                } else {
+                  return const SizedBox(
+                    child: Text('Please Check your internet connection'),
+                  );
+                }
+              }),
+          bottomNavigationBar: BottomNavigationBar(
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home),
+                label: 'Home',
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            sized50,
-            Stack(
-              children: [
-                Container(
-                  width: 300,
-                  height: 300,
-                  decoration: BoxDecoration(
-                    color: const Color.fromRGBO(81, 150, 112, 0.411),
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        top: 30,
-                        left: 30,
-                        child: InkWell(
-                            onTap: () {
-                              Get.to(() => const BookingScreen());
-                            },
-                            child: smallContainer(
-                              "Bookings",
-                            )),
-                      ),
-                      Positioned(
-                        top: 30,
-                        right: 30,
-                        child: InkWell(
-                        onTap: (){
-                          Get.to(()=>const ProfileScreen());
-                          },
-                          child: smallContainer(
-                            "Profile",
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        bottom: 30,
-                        left: 30,
-                        child: InkWell(
-                            child: smallContainer("Add Offers"),
-                            onTap: () => showModalBottomSheet<void>(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return SizedBox(
-                                      height: 400,
-                                      child: Center(
-                                          child: Obx(
-                                        () => Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: <Widget>[
-                                            Container(
-                                              width: 250,
-                                              height: 150,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20.0),
-                                                shape: BoxShape.rectangle,
-                                                border: Border.all(
-                                                  color: const Color.fromARGB(
-                                                      255, 37, 72, 38),
-                                                ),
-                                              ),
-                                              child: imageurl .isEmpty
-                                                  ? const Center(
-                                                      child: Text(
-                                                        'Add Image',
-                                                        style: TextStyle(
-                                                          color: Color.fromARGB(
-                                                              255, 11, 11, 11),
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                    )
-                                                  : Container(
-                                                      width: double.infinity,
-                                                      height: 150,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(20.0),
-                                                        shape:
-                                                            BoxShape.rectangle,
-                                                        border: Border.all(
-                                                          color: const Color
-                                                              .fromARGB(
-                                                              255, 37, 72, 38),
-                                                        ),
-                                                      ),
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(20.0),
-                                                        child: Image.file(
-                                                          File(imageurl.value),
-                                                          fit: BoxFit.cover,
-                                                        ),
-                                                      ),
-                                                    ),
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          top: 18.0),
-                                                  child: ElevatedButton.icon(
-                                                      icon: const Icon(
-                                                          Icons.save),
-                                                      label: const Text('Save'),
-                                                      onPressed: () async {
-                                                        final bool response =
-                                                            await offerInstance
-                                                                .uploadImage(
-                                                                    imageurl
-                                                                        .value)
-                                                                .then((value) {
-                                                          Get.back();
-                                                          return value;
-                                                        });
-                                                        if (response) {
-                                                          Get.snackbar(
-                                                              'Success',
-                                                              'Success');
-                                                        } else {
-                                                          Get.snackbar('Error',
-                                                              'Please Check your internet connection');
-                                                        }
-                                                      }),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          top: 18.0),
-                                                  child: ElevatedButton.icon(
-                                                    icon: const Icon(Icons.add),
-                                                    label: Text(imageurl == ''
-                                                        ? 'Add Offer Card'
-                                                        : 'update card'),
-                                                    onPressed: () =>
-                                                        pickImage(),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                      )),
-                                    );
-                                  },
-                                )),
-                      ),
-                      Positioned(
-                        bottom: 30,
-                        right: 30,
-                        child: InkWell(
-                          onTap: (){
-                            Get.to(CancelScreen());
-                          },
-                          child: smallContainer("Cancelled \n     Data")),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
-    );
+              BottomNavigationBarItem(
+                icon: Icon(Icons.business),
+                label: 'Business',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.school),
+                label: 'School',
+              ),
+            ],
+            currentIndex: offer.currectIndex.value,
+            selectedItemColor: Colors.amber[800],
+            onTap: offer.onItemTapped,
+          ),
+        ));
   }
 
   Future<void> pickImage() async {
