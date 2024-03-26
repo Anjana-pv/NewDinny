@@ -92,22 +92,24 @@ class ClientHomescreen extends StatelessWidget {
                 }
               }),
           bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: const Color.fromARGB(206, 4, 52, 29),
+            unselectedItemColor: Colors.grey,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.home),
+                icon: Icon(Icons.home,color: Colors.amber,),
                 label: 'Home',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.business),
+                icon: Icon(Icons.business,color: Colors.amber,),
                 label: 'Business',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.school),
+                icon: Icon(Icons.school,color: Colors.amber,),
                 label: 'School',
               ),
             ],
             currentIndex: offer.currectIndex.value,
-            selectedItemColor: Colors.amber[800],
+            selectedItemColor: const Color.fromARGB(255, 255, 255, 255),
             onTap: offer.onItemTapped,
           ),
         ));

@@ -56,9 +56,10 @@ class HomeWidget extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 15),
+                  
                   const Icon(Icons.arrow_circle_right,
-                      color: Color.fromARGB(255, 3, 114, 35), size: 40),
+                      color: const Color.fromARGB(206, 4, 52, 29)),
                 ],
               ),
             ),

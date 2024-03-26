@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'package:dinnytable/controller/controllers/offer_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -9,7 +8,7 @@ class AddOfferBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-      final OfferController offer = Get.find<OfferController>();
+      // final OfferController offer = Get.find<OfferController>();
 
     return SizedBox(
       height: 400,
