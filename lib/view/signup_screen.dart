@@ -7,8 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-
-
 class SignUp extends StatelessWidget {
   const SignUp({super.key});
 
@@ -43,64 +41,78 @@ class SignUp extends StatelessWidget {
                 Center(
                   child: Column(children: [
                     Customtextfeild(
-                      hintText: 'Username',
-                      controller: clientcontroller.user,
-                      icon: const Icon(
-                        Icons.person,
-                      ),
-                      obscureText: false,
-                      keyboardType: TextInputType.name,
-                      
-                    ),
+                        hintText: 'Username',
+                        controller: clientcontroller.user,
+                        icon: const Icon(
+                          Icons.person,
+                        ),
+                        obscureText: false,
+                        keyboardType: TextInputType.name,
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Username cannot be empty';
+                          } else if (value.contains(RegExp(r'[0-9]'))) {
+                            return 'Username cannot contain numbers';
+                          }
+                          return null; 
+                        }),
                     sized10,
                     Customtextfeild(
-                      hintText: 'Email',
-                      controller: clientcontroller.email,
-                      icon: const Icon(
-                        Icons.mail,
-                      ),
-                      obscureText: false,
-                      keyboardType: TextInputType.emailAddress,
-                    ),
+                  controller: clientcontroller.email,
+                  hintText: 'Email',
+                  icon: const Icon(Icons.person),
+                  obscureText: false,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Email cannot be empty';
+                    } else if (!GetUtils.isEmail(value)) {
+                      return 'Enter a valid email address';
+                    }
+                    return null; 
+                  },
+                ),
                     sized10,
                    Customtextfeild(
-                      hintText: 'Password',
-                      controller: clientcontroller.password,
-                      icon: const Icon(
-                        Icons.lock,
-                      ),
-                      obscureText: false,
-                      keyboardType: TextInputType.text
-                    ),    
+                  controller: clientcontroller.password,
+                  hintText: ' Password',
+                  icon: const Icon(Icons.lock),
+                  obscureText: true,
+                  keyboardType: TextInputType.text,
+                  validator: (value) {
+                    if (value == null || value.isEmpty || value.length < 6) {
+                      return 'Password must be at least 6 characters long.';
+                    }
+                    return null;
+                  },),
                     sized20,
-                    Padding(
-                      padding: const EdgeInsets.only(left: 30),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 30),
                       child: Row(
                         children: [
+                          // SizedBox(
+                          //     width: 24,
+                          //     height: 24,
+                          //     child: Checkbox(
+                          //       value: false,
+                          //       onChanged: (value) {},
+                          //     )),
                           SizedBox(
-                              width: 24,
-                              height: 24,
-                              child: Checkbox(
-                                value: false,
-                                onChanged: (value) {},
-                              )),
-                          const SizedBox(
                             width: 10,
                           ),
-                          const Text.rich(TextSpan(
-                            text: 'I Agree to policy and privacy',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 16.0,
-                            ),
-                          ))
+                          // const Text.rich(TextSpan(
+                          //   text: 'I Agree to policy and privacy',
+                          //   style: TextStyle(
+                          //     color: Colors.black,
+                          //     fontSize: 16.0,
+                          //   ),
+                          // ))
                         ],
                       ),
                     ),
                     sized20,
                     ElevatedButton(
                         onPressed: () async {
-                          
                           if (formKey.currentState?.validate() ?? false) {
                             if (!isValidEmail(clientcontroller.email.text)) {
                               Get.snackbar(
@@ -115,10 +127,10 @@ class SignUp extends StatelessWidget {
                               );
                               return;
                             }
-                            if (clientcontroller.password.text.length < 1) {
+                            if (clientcontroller.password.text.length < 6) {
                               Get.snackbar(
                                 ' Error',
-                                'Enter minimum 8 charecters in password',
+                                'Enter minimum 6 charecters in password',
                                 snackPosition: SnackPosition.BOTTOM,
                                 duration: const Duration(seconds: 3),
                                 backgroundColor: Colors.red,
@@ -153,20 +165,18 @@ class SignUp extends StatelessWidget {
                                 snackStyle: SnackStyle.FLOATING,
                               );
                             } else {
-                              Get.to(RegistrationScreen(
-                                username: clientcontroller.user.text,
-                                password: clientcontroller.password.text,
-                                email: clientcontroller.email.text,
-                                 
-                              ), 
+                              Get.to(
+                                RegistrationScreen(
+                                  username: clientcontroller.user.text,
+                                  password: clientcontroller.password.text,
+                                  email: clientcontroller.email.text,
+                                ),
                               );
-                               clientcontroller.user.clear();
-                               clientcontroller.password.clear();
-                               clientcontroller.email.clear();
+                              clientcontroller.user.clear();
+                              clientcontroller.password.clear();
+                              clientcontroller.email.clear();
                             }
                           }
-                           
-                              
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(

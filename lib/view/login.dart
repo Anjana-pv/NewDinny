@@ -6,8 +6,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
-
 class LoginScreen extends StatelessWidget {
   const LoginScreen({
     super.key,
@@ -43,23 +41,39 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
           Form(
-            key: formKey, 
+            key: formKey,
             child: Column(
               children: [
                 sized10,
                 Customtextfeild(
-                    controller: clientcontroller.email,
-                    hintText: 'Email',
-                    icon: const Icon(Icons.person),
-                    obscureText: false,
-                    keyboardType: TextInputType.emailAddress),
+                  controller: clientcontroller.email,
+                  hintText: 'Email',
+                  icon: const Icon(Icons.person),
+                  obscureText: false,
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Email cannot be empty';
+                    } else if (!GetUtils.isEmail(value)) {
+                      return 'Enter a valid email address';
+                    }
+                    return null; 
+                  },
+                ),
                 sized10,
                 Customtextfeild(
-                    controller: clientcontroller.password,
-                    hintText: ' Password',
-                    icon: const Icon(Icons.lock),
-                    obscureText: true,
-                    keyboardType: TextInputType.text),
+                  controller: clientcontroller.password,
+                  hintText: ' Password',
+                  icon: const Icon(Icons.lock),
+                  obscureText: true,
+                  keyboardType: TextInputType.text,
+                  validator: (value) {
+                    if (value == null || value.isEmpty || value.length < 6) {
+                      return 'Password must be at least 6 characters long.';
+                    }
+                    return null;
+                  },
+                ),
                 sized20,
                 ElevatedButton(
                   onPressed: () {

@@ -99,28 +99,44 @@ class RegistrationScreen extends StatelessWidget {
                       hintText: 'Resturent name',
                       icon: const Icon(Icons.restaurant_menu_outlined),
                       obscureText: false,
-                      keyboardType: TextInputType.name),
+                      keyboardType: TextInputType.name, validator: (value) {  if ( value.isEmpty||value.length<1) {
+                       return 'Please check your entered name'; 
+                       }
+                       return null;
+                       }),
                   sized10,
                   Customtextfeild(
                       controller: regcontroller.ownerName,
                       hintText: 'Owner name',
                       icon: const Icon(Icons.person),
                       obscureText: false,
-                      keyboardType: TextInputType.text),
+                      keyboardType: TextInputType.text,  validator: (value) {  if ( value.isEmpty||value.length<1) {
+                       return 'Please check your entered name'; 
+                       }
+                       return null;
+                       }),
                   sized10,
                   Customtextfeild(
                       controller: regcontroller.address,
                       hintText: 'Address',
                       icon: const Icon(Icons.location_city_outlined),
                       obscureText: false,
-                      keyboardType: TextInputType.multiline),
+                      keyboardType: TextInputType.multiline,  validator: (value) {  if ( value.isEmpty||value.length<1) {
+                       return 'Please check your address'; 
+                       }
+                       return null;
+                       }),
                   sized10,
                   Customtextfeild(
                       controller: regcontroller.city,
                       hintText: 'City',
                       icon: const Icon(Icons.location_on),
                       obscureText: false,
-                      keyboardType: TextInputType.text),
+                      keyboardType: TextInputType.text,  validator: (value) {  if ( value.isEmpty||value.length<1) {
+                       return 'Please check your entered '; 
+                       }
+                       return null;
+                       }),
                   sized10,
                   Customtextfeild(
                       controller: regcontroller.totalSeats,
@@ -128,14 +144,22 @@ class RegistrationScreen extends StatelessWidget {
                       icon:
                           const Icon(Icons.airline_seat_legroom_reduced_sharp),
                       obscureText: false,
-                      keyboardType: TextInputType.number),
+                      keyboardType: TextInputType.number,  validator: (value) {  if ( value.isEmpty) {
+                       return 'Please check your entered name'; 
+                       }
+                       return null;
+                       }),
                   sized10,
                   Customtextfeild(
                       controller: regcontroller.typeResturent,
                       hintText: 'Type of Resturent',
                       icon: const Icon(Icons.fastfood_rounded),
                       obscureText: false,
-                      keyboardType: TextInputType.text),
+                      keyboardType: TextInputType.text,  validator: (value) {  if ( value.isEmpty||value.length<1) {
+                       return 'Please check Type you entered'; 
+                       }
+                       return null;
+                       }),
                   sized10,
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

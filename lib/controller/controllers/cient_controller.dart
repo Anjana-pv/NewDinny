@@ -1,7 +1,9 @@
 
+import 'dart:developer';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dinnytable/models/client_reg_model.dart';
+import 'package:dinnytable/view/splash_screen.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -65,7 +67,10 @@ class Clientcontroller extends GetxController {
           .collection('clientdetail')
           .doc()
           .set(clietRegMap);
+final SharedPreferences pref =await SharedPreferences.getInstance();
+   pref.setBool("isLogined",true );
       return true;
+      
     } catch (e) {
       return false;
     }
@@ -92,7 +97,6 @@ class Clientcontroller extends GetxController {
     }
   }
 
-  Future<void> getdatas() async {}
 
   Future<void> updateContact(
       String documentId, ClientRegModel updatedData) async {
@@ -130,9 +134,25 @@ class Clientcontroller extends GetxController {
 
  Future<void> fetchDatas() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    final id = prefs.getString('resturent_id');
+     final id = prefs.getString('resturent_id');
+     log("$id");
 
     
+  }
+  Future<void> deleteUser() async {
+    SharedPreferences getuserId = await SharedPreferences.getInstance();
+    final userId = getuserId.getString('resturent_id');
+
+    try {
+      await FirebaseFirestore.instance.collection('approvedOne').doc(userId).delete();
+    } catch (error) {
+      log('Error deleting user: $error');
+    }
+  }
+  Future<void> logout() async {
+    SharedPreferences prefsId = await SharedPreferences.getInstance();
+    await prefsId.setBool('isLogined', false);
+    Get.offAll(SplashScreen());
   }
 
 }

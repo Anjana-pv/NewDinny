@@ -27,11 +27,12 @@ class ClientHomescreen extends StatelessWidget {
     ProfileController profileInstance = Get.put(ProfileController());
 
     return Obx(() => Scaffold(
-          drawer:offer.currectIndex.value==0? const NavBar():null, 
-          appBar: AppBar(
+          drawer: offer.currectIndex.value == 0 ? const NavBar() : null,
+          appBar: AppBar(automaticallyImplyLeading: offer.currectIndex.value == 0 ?true:  false,
             iconTheme: const IconThemeData(
               color: Colors.white,
             ),
+            
             title: Text(
               offer.currectIndex.value == 0
                   ? headings.first
@@ -52,7 +53,7 @@ class ClientHomescreen extends StatelessWidget {
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           List<Widget> widgetOptions = [
-                            const HomeWidget(),
+                            HomeWidget(bookingSnap: bookingSnap),
                             BookingsWidget(snapshot: bookingSnap),
                             ProfileWidget(snapshot: snapshot),
                           ];
@@ -96,16 +97,25 @@ class ClientHomescreen extends StatelessWidget {
             unselectedItemColor: Colors.grey,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: Icon(Icons.home,color: Colors.amber,),
+                icon: Icon(
+                  Icons.home,
+                  color: Colors.white,
+                ),
                 label: 'Home',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.business,color: Colors.amber,),
-                label: 'Business',
+                icon: Icon(
+                  Icons.library_books_outlined,
+                  color: Colors.white,
+                ),
+                label: 'Bookings',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.school,color: Colors.amber,),
-                label: 'School',
+                icon: Icon(
+                  Icons.person,
+                  color: Colors.white,
+                ),
+                label: 'Profile',
               ),
             ],
             currentIndex: offer.currectIndex.value,

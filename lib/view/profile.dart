@@ -25,7 +25,7 @@ class ProfileWidget extends StatelessWidget {
             fit: StackFit.expand,
             children: [
               imageUrl == ''
-                  ? const Text('no preview')
+                  ? const Center(child:  CircularProgressIndicator())
                   : Image.network(
                       imageUrl,
                       fit: BoxFit.cover,

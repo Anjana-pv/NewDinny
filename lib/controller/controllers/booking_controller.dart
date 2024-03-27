@@ -23,8 +23,13 @@ class BookingController extends GetxController{
   }
     Future<void> fetchDatas() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
+    
     final id = prefs.getString('resturent_id');
-    bookingStream.value = getbooking(id!);
+    if(id==null){
+      return ;
+    }else{
+     bookingStream.value = getbooking(id!);
+    }
   }
 
 }

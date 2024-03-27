@@ -1,14 +1,10 @@
-
 import 'package:dinnytable/view/home_client.dart';
-import 'package:dinnytable/view/home_widget.dart';
-import 'package:dinnytable/view/login.dart';
 import 'package:dinnytable/view/splash_screen.dart';
-// import 'package:dinnytable/view/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-Future<void> main() async{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(const MyApp());
@@ -21,17 +17,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-     title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 24, 110, 57)),
-          useMaterial3: true,
-        ),
-        initialRoute: "/" ,
-         getPages: [
-          // GetPage(name: '/', page: () => const SplashScreen() ),
-        GetPage(name: '/', page: () => const ClientHomescreen() ), 
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color.fromARGB(255, 24, 110, 57)),
+        useMaterial3: true,
+      ),
+      initialRoute: "/",
+      getPages: [
+        GetPage(name: '/', page: () => const SplashScreen()),
+        GetPage(name: '/home', page: () => const ClientHomescreen()),
       ],
-      );
-    
+    );
   }
 }

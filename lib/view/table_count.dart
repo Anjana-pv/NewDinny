@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:ui';
 import 'package:dinnytable/controller/controllers/cient_controller.dart';
+import 'package:dinnytable/controller/firebase/user_login.dart';
 
 import 'package:dinnytable/models/client_reg_model.dart';
 import 'package:dinnytable/view/add_document.dart';
@@ -201,8 +202,11 @@ class FrostedGlassScreen extends StatelessWidget {
       regcontroller.totalSeats.clear();
       regcontroller.user.clear();
 
-      Get.to(LoginScreen());
-    } else {
+    
+ Get.until((route) => Get.currentRoute == '/login');
+
+
+       } else {
       Get.snackbar(
         'Error',
         'Registration failed. Please try again.',

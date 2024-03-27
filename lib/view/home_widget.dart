@@ -1,10 +1,17 @@
-import 'package:flutter/material.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dinnytable/view/booking_widget.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+
+ 
 class HomeWidget extends StatelessWidget {
   const HomeWidget({
-    super.key,
+    super.key, required this.bookingSnap,
   });
-
+  
+final AsyncSnapshot<QuerySnapshot<Object?>> bookingSnap;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -49,17 +56,24 @@ class HomeWidget extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text(
-                      "Check Daily bookings",
+                      "Through Oudinny to World wide",
                       style: TextStyle(
                         color: Color.fromARGB(255, 2, 2, 2),
                         fontSize: 20,
                       ),
                     ),
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 10),
                   
-                  const Icon(Icons.arrow_circle_right,
-                      color: const Color.fromARGB(206, 4, 52, 29)),
+                  // GestureDetector(
+                  //   onTap: () => Get.to(BookingsWidget(snapshot:bookingSnap )),
+                  //   child: const Icon(Icons.arrow_circle_right,
+                  //       color:  Color.fromARGB(206, 4, 52, 29),
+                  //       size: 50,),
+                  // ),
+
+
+
                 ],
               ),
             ),
