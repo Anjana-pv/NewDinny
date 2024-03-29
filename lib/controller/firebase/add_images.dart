@@ -1,4 +1,5 @@
- import 'dart:io';
+ import 'dart:developer';
+import 'dart:io';
 import 'package:dinnytable/controller/controllers/cient_controller.dart';
 import 'package:dinnytable/view/registratio.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -35,7 +36,7 @@ Future<void> uploadImage(XFile pickedFile, BuildContext context) async {
     );
       downloadUrlImage = await referenceImagetoupload.getDownloadURL();
     } catch (e) {
-      print('Error uploading file: $e');
+      log('Error uploading file: $e');
     }
   }
   bool validateFields(Clientcontroller regcontroller) {
@@ -46,7 +47,7 @@ Future<void> uploadImage(XFile pickedFile, BuildContext context) async {
       'Error',
       'All fields must be filled and an image must be added.',
       snackPosition: SnackPosition.BOTTOM,
-      duration: Duration(seconds: 3),
+      duration: const Duration(seconds: 3),
       backgroundColor: Colors.red,
       colorText: Colors.white,
     );

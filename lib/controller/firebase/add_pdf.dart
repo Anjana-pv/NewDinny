@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -40,9 +41,9 @@ Future<void> uploadPdf(File pdfFile, RxString pdf) async {
     Reference storageReference = storage.ref().child('pdfs/$fileName');
     final uploadImage = await storageReference.putFile(pdfFile);
     pdf.value = await storageReference.getDownloadURL();
-    print('PDF uploaded successfully');
+    log('PDF uploaded successfully');
   } catch (e) {
-    print('Error uploading PDF: $e');
+    log('Error uploading PDF: $e');
   }
 }
 
@@ -52,7 +53,7 @@ Future pickImagesAndUpload(RxList cardUrls) async {
   final picker = ImagePicker();
   final pickedFileList = await picker.pickMultiImage();
 
-  if (pickedFileList != null) {
+  if (pickedFileList!=null) {
     pickedImages =
         pickedFileList.map((pickedFile) => File(pickedFile.path)).toList();
     uploadImages(pickedImages, cardUrls);
@@ -68,8 +69,8 @@ Future uploadImages(List<File> imgFiles, RxList cardUrls) async {
       await storageReference.putFile(imgFile);
       cardUrls.add(await storageReference.getDownloadURL());
     }
-    print('Images uploaded successfully');
+    log('Images uploaded successfully');
   } catch (e) {
-    print('Error uploading images: $e');
+    log('Error uploading images: $e');
   }
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  CustomButton({
+  const CustomButton({
     Key? key,
     required this.name,
     required this.controller,
@@ -21,10 +21,10 @@ class CustomButton extends StatelessWidget {
         );
 
         if (pickedTime != null) {
-          // Format the picked time with AM/PM
+        
           String formattedTime = formatTimeOfDay(context, pickedTime);
 
-          // Set the formatted time to the controller's text
+
           controller.text = formattedTime;
         }
       },

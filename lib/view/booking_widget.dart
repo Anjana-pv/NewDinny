@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dinnytable/widget.dart/resuable_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class BookingsWidget extends StatelessWidget {
   const BookingsWidget({
@@ -53,9 +54,24 @@ class BookingsWidget extends StatelessWidget {
                       'Geust Count : $guestCount',
                       style: const TextStyle(fontSize: 14.0),
                     ),
-                    Text(
-                      'Contact Number : $userInfo',
-                      style: const TextStyle(fontSize: 14.0),
+                    InkWell(
+                      onTap: () {
+                        _launchPhone(userInfo);
+                      },
+                      child: RichText(
+                        text: TextSpan(
+                          text: 'Contact Number : ',
+                          style: const TextStyle(
+                              fontSize: 14.0, color: Colors.black),
+                          children: <TextSpan>[
+                            TextSpan(
+                              text: userInfo,
+                              style: const TextStyle(
+                                  fontSize: 14.0, color: Colors.blue),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                     Text(
                       'Selected Time : $bookingTime',
@@ -82,5 +98,16 @@ class BookingsWidget extends StatelessWidget {
       },
       itemCount: bookingDetail.length,
     );
+  }
+
+  static void _launchPhone(String phone) async {
+    String url = 'tel:$phone';
+    // ignore: deprecated_member_use
+    if (await canLaunch(url)) {
+      // ignore: deprecated_member_use
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

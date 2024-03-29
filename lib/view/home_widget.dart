@@ -1,9 +1,11 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dinnytable/view/booking_widget.dart';
+import 'package:dinnytable/view/offer_pages.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:get/get.dart';
+
+
+
+
 
  
 class HomeWidget extends StatelessWidget {
@@ -56,7 +58,7 @@ final AsyncSnapshot<QuerySnapshot<Object?>> bookingSnap;
                   const Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text(
-                      "Through Oudinny to World wide",
+                      "Add Offers click the button below",
                       style: TextStyle(
                         color: Color.fromARGB(255, 2, 2, 2),
                         fontSize: 20,
@@ -65,12 +67,14 @@ final AsyncSnapshot<QuerySnapshot<Object?>> bookingSnap;
                   ),
                   const SizedBox(height: 10),
                   
-                  // GestureDetector(
-                  //   onTap: () => Get.to(BookingsWidget(snapshot:bookingSnap )),
-                  //   child: const Icon(Icons.arrow_circle_right,
-                  //       color:  Color.fromARGB(206, 4, 52, 29),
-                  //       size: 50,),
-                  // ),
+                  GestureDetector(
+                    onTap: () =>showModalBottomSheet(context: context,builder: (context) {
+                      return const AddOfferBottomSheet();
+                    },) ,
+                    child:const Icon(Icons.camera_alt_outlined,
+                        color:  Color.fromARGB(206, 4, 52, 29),
+                        size: 50,),
+                  ),
 
 
 

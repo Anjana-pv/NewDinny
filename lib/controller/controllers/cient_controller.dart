@@ -126,9 +126,9 @@ final SharedPreferences pref =await SharedPreferences.getInstance();
           .collection('approvedOne')
           .doc(documentId)
           .update(updatedMap);
-      print('Document updated successfully');
+      log('Document updated successfully');
     } catch (e) {
-      print('Error updating document: $e');
+      log('Error updating document: $e');
     }
   }
 
@@ -152,7 +152,7 @@ final SharedPreferences pref =await SharedPreferences.getInstance();
   Future<void> logout() async {
     SharedPreferences prefsId = await SharedPreferences.getInstance();
     await prefsId.setBool('isLogined', false);
-    Get.offAll(SplashScreen());
+    Get.offAll(const SplashScreen());
   }
 
 }

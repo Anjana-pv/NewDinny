@@ -1,8 +1,9 @@
 
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dinnytable/controller/firebase/signin_auth.dart';
 import 'package:dinnytable/view/home_client.dart';
-import 'package:dinnytable/view/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -27,7 +28,7 @@ Future<void> login(String email, String password) async {
       Get.off(const ClientHomescreen());
       regcontroller.email.clear();
       regcontroller.password.clear();
-      print(regcontroller.email.text);
+      log(regcontroller.email.text);
       return;
     }
      QuerySnapshot rejectedSnapshot = await FirebaseFirestore.instance

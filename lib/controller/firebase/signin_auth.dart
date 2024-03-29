@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dinnytable/controller/controllers/cient_controller.dart';
 import 'package:dinnytable/view/registratio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -35,11 +37,11 @@ googlesignin() async {
     
   try {
     await GoogleSignIn().signOut();
-    print("Google Sign-Out successful");
+    log("Google Sign-Out successful");
     final SharedPreferences pref =await SharedPreferences.getInstance();
    pref.setBool("islogin",false );
   } catch (e) {
-    print("Error signing out with Google: $e");
+    log("Error signing out with Google: $e");
   
   }
 }

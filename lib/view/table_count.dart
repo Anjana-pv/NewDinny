@@ -1,11 +1,8 @@
 import 'dart:developer';
 import 'dart:ui';
 import 'package:dinnytable/controller/controllers/cient_controller.dart';
-import 'package:dinnytable/controller/firebase/user_login.dart';
-
 import 'package:dinnytable/models/client_reg_model.dart';
 import 'package:dinnytable/view/add_document.dart';
-import 'package:dinnytable/view/login.dart';
 import 'package:dinnytable/widget.dart/resuable_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

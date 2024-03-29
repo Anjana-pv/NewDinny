@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -74,5 +75,35 @@ Future<bool> addpicture(String imageurl) async {
       return false;
     }
   }
- 
+ Future<void> pickImage() async {
+  // SharedPreferences restruentPrefs = await SharedPreferences.getInstance();
+  //   String resturentId = restruentPrefs.getString('resturent_id').toString();
+  final ImagePicker picker = ImagePicker();
+  final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
+
+  if (pickedFile == null) {
+    return;
+  }
+
+  try {
+    imageUrl = pickedFile.path;
+  } catch (e) {
+    log('$e');
+  }
+}
+
+Future<void> addImageToFirebase() async {
+  if (imageUrl.isEmpty) {
+    return;
+  }
+
+  final bool response = await uploadImage(imageUrl);
+  if (response) {
+    Get.snackbar('Success', 'Image uploaded successfully',);
+    Get.back();
+  } else {
+    Get.snackbar('Error', 'Failed to upload image');
+  }
+}
+
 }

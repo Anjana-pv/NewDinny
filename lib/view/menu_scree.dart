@@ -1,13 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dinnytable/controller/controllers/cient_controller.dart';
-import 'package:dinnytable/view/login.dart';
-import 'package:dinnytable/view/polices_dart';
-import 'package:dinnytable/view/splash_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:dinnytable/view/polices.dart';
+
+
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 
 class NavBar extends StatelessWidget {
   const NavBar({
@@ -72,7 +72,7 @@ class NavBar extends StatelessWidget {
             leading: const Icon(Icons.privacy_tip),
             title: const Text('Policy and Privacy'),
             onTap: () {
-            Get.to(  PrivacyPolicyScreen());
+            Get.to(const PrivacyPolicyScreen());
             }
           ),
          

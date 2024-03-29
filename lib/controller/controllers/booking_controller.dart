@@ -28,7 +28,7 @@ class BookingController extends GetxController{
     if(id==null){
       return ;
     }else{
-     bookingStream.value = getbooking(id!);
+     bookingStream.value = getbooking(id);
     }
   }
 

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:dinnytable/controller/firebase/add_pdf.dart';
 import 'package:dinnytable/view/table_count.dart';
 import 'package:dinnytable/widget.dart/card.dart';
@@ -128,11 +129,11 @@ class AddDocuments extends StatelessWidget {
               sized30,
               ElevatedButton(
                 onPressed: () async {
-                   print(username);
-                   print(password);
-                    print(startingtime);
-                    print(endingTime);
-                    print(email);
+                   log("$username");
+                    log("$password");
+                     log("$startingtime");
+                     log("$endingTime");
+                     log("$email");
                   Get.to(FrostedGlassScreen(
                             resturentName:  resturentName,
                              ownerName: ownerName, 
