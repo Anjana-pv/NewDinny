@@ -68,6 +68,7 @@ class AddOfferBottomSheet extends StatelessWidget {
                     label: const Text('Save'),
                     onPressed: () async {
                       await offerController.addImageToFirebase();
+                      Get.back;
                     },
                   ),
                 ),

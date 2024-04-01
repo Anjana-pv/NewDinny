@@ -11,7 +11,7 @@ class OfferController extends GetxController {
   String imageUrl = '';
   RxInt currectIndex = 0 .obs;
 
-  get image => null;
+
   void onItemTapped(int index) {
    
       currectIndex.value = index;
@@ -75,22 +75,23 @@ Future<bool> addpicture(String imageurl) async {
       return false;
     }
   }
- Future<void> pickImage() async {
-  // SharedPreferences restruentPrefs = await SharedPreferences.getInstance();
-  //   String resturentId = restruentPrefs.getString('resturent_id').toString();
-  final ImagePicker picker = ImagePicker();
-  final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
+ 
+  Future<void> pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? pickedFile =
+        await picker.pickImage(source: ImageSource.gallery);
 
-  if (pickedFile == null) {
-    return;
-  }
+    if (pickedFile == null) {
+      return;
+    }
 
-  try {
-    imageUrl = pickedFile.path;
-  } catch (e) {
-    log('$e');
+    try {
+      imageUrl = pickedFile.path;
+    update();
+    } catch (e) {
+      log('$e');
+    }
   }
-}
 
 Future<void> addImageToFirebase() async {
   if (imageUrl.isEmpty) {

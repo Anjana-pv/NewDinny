@@ -14,6 +14,19 @@ class BookingsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<DocumentSnapshot> bookingDetail = snapshot.data!.docs;
+    if (bookingDetail.isEmpty) {
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      Image.asset(
+        'assest/no data.jpg', 
+        width: 150,
+        height: 150,
+      ),
+    ],
+  );
+}
+
     return ListView.builder(
       itemBuilder: (context, index) {
         var bookingData = bookingDetail[index].data() as Map<String, dynamic>;

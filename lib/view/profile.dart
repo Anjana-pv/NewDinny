@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:dinnytable/widget.dart/menucard.dart';
 import 'package:dinnytable/widget.dart/resuable_widgets.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,19 @@ class ProfileWidget extends StatelessWidget {
     final restaurantData = snapshot.data!.data() as Map<String, dynamic>;
     String imageUrl = restaurantData['profileImage'] ?? '';
     String name = restaurantData['resturent_name'] ?? '';
+
+   return StreamBuilder<ConnectivityResult>(
+      stream: Connectivity().onConnectivityChanged,
+      builder: (context, snapshot) {
+        if (snapshot.data == ConnectivityResult.none) {
+          return const Center(
+            child: Text('No internet connection'),
+          );
+        }
+
+
+
+
     return ListView(
       children: [
         SizedBox(
@@ -156,5 +170,8 @@ class ProfileWidget extends StatelessWidget {
         ),
       ],
     );
+      }
+   );
+  
   }
 }
