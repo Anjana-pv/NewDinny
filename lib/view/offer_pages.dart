@@ -1,35 +1,34 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:dinnytable/controller/controllers/offer_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 class AddOfferBottomSheet extends StatelessWidget {
- const  AddOfferBottomSheet({super.key});
-
+  const AddOfferBottomSheet({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-   final OfferController offerController = Get.find<OfferController>();   
+    final OfferController offerController = Get.find<OfferController>();
 
-    return SizedBox(
+    return Obx(() => SizedBox(
       height: 400,
       child: Center(
         child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Container(
-                width: 250,
-                height: 150,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  shape: BoxShape.rectangle,
-                  border: Border.all(
-                    color: const Color.fromARGB(255, 37, 72, 38),
-                  ),
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Container(
+              width: 250,
+              height: 150,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20.0),
+                shape: BoxShape.rectangle,
+                border: Border.all(
+                  color: const Color.fromARGB(255, 37, 72, 38),
                 ),
-             child: offerController.imageUrl.isEmpty
+              ),
+              child: offerController.imageUrls.isEmpty
                   ? const Center(
                       child: Text(
                         'Add Image',
@@ -49,13 +48,13 @@ class AddOfferBottomSheet extends StatelessWidget {
                           color: const Color.fromARGB(255, 37, 72, 38),
                         ),
                       ),
-                      child: ClipRRect(
+                      child:  ClipRRect(
                         borderRadius: BorderRadius.circular(20.0),
                         child: Image.file(
-                          File(offerController.imageUrl),
+                          File(offerController.imageUrls[0]), 
                           fit: BoxFit.cover,
                         ),
-                      ),
+                      ), 
                     ),
             ),
             Row(
@@ -67,8 +66,15 @@ class AddOfferBottomSheet extends StatelessWidget {
                     icon: const Icon(Icons.save),
                     label: const Text('Save'),
                     onPressed: () async {
-                      await offerController.addImageToFirebase();
-                      Get.back;
+                     final response= await offerController.addImageToFirebase();
+                     if (response) {
+                      offerController.imageUrls.clear(); 
+                       Get.close(1); 
+                      
+                     } else {
+                       log('false'); 
+                     }
+                      
                     },
                   ),
                 ),
@@ -87,6 +93,6 @@ class AddOfferBottomSheet extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ));
   }
 }

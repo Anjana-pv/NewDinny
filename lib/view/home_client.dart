@@ -27,7 +27,7 @@ class ClientHomescreen extends StatelessWidget {
     ProfileController profileInstance = Get.put(ProfileController());
 
     return Obx(() => Scaffold(
-          drawer: offer.currectIndex.value == 0 ? const NavBar() : null,
+            drawer: offer.currectIndex==0? NavBar() : null,
           appBar: AppBar(automaticallyImplyLeading: offer.currectIndex.value == 0 ?true:  false,
             iconTheme: const IconThemeData(
               color: Colors.white,
