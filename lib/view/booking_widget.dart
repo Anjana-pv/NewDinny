@@ -15,15 +15,18 @@ class BookingsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     List<DocumentSnapshot> bookingDetail = snapshot.data!.docs;
     if (bookingDetail.isEmpty) {
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: [
-      Image.asset(
-        'assest/no data.jpg', 
-        width: 150,
-        height: 150,
-      ),
-    ],
+  return Center(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          'assest/no data.jpg', 
+          width: 150,
+          height: 150,
+        ),
+        const Text('No Bookings Available')
+      ],
+    ),
   );
 }
 

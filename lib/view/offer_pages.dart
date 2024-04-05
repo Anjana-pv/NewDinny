@@ -51,7 +51,7 @@ class AddOfferBottomSheet extends StatelessWidget {
                       child:  ClipRRect(
                         borderRadius: BorderRadius.circular(20.0),
                         child: Image.file(
-                          File(offerController.imageUrls[0]), 
+                          File(offerController.imageUrls.isNotEmpty ? offerController.imageUrls[0] : ''),
                           fit: BoxFit.cover,
                         ),
                       ), 

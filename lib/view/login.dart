@@ -26,7 +26,7 @@ class LoginScreen extends StatelessWidget {
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   image:
-                      AssetImage("assest/Apple_Watch_41mm_-_2-transformed.png"),
+                      AssetImage("assest/logo.png"),
                 ),
               ),
             ),
@@ -80,6 +80,8 @@ class LoginScreen extends StatelessWidget {
                     if (formKey.currentState?.validate() ?? false) {
                       login(clientcontroller.email.text.trim(),
                           clientcontroller.password.text.trim());
+                          clientcontroller.email.clear();
+                          clientcontroller.password.clear();
                     }
                   },
                   style: ButtonStyle(

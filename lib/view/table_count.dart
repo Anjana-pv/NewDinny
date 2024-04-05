@@ -200,7 +200,7 @@ class FrostedGlassScreen extends StatelessWidget {
       regcontroller.user.clear();
 
     
- Get.until((route) => Get.currentRoute == '/login');
+ Get.toNamed('/') ;
 
 
        } else {

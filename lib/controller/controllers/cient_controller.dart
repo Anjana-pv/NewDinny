@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -33,8 +32,6 @@ class Clientcontroller extends GetxController {
   final storage = FirebaseStorage.instance;
   RxBool obscureText = true.obs;
 
-  
-
   @override
   void onInit() {
     super.onInit();
@@ -67,10 +64,7 @@ class Clientcontroller extends GetxController {
           .collection('clientdetail')
           .doc()
           .set(clietRegMap);
-final SharedPreferences pref =await SharedPreferences.getInstance();
-   pref.setBool("isLogined",true );
       return true;
-      
     } catch (e) {
       return false;
     }
@@ -96,7 +90,6 @@ final SharedPreferences pref =await SharedPreferences.getInstance();
       return false;
     }
   }
-
 
   Future<void> updateContact(
       String documentId, ClientRegModel updatedData) async {
@@ -132,27 +125,29 @@ final SharedPreferences pref =await SharedPreferences.getInstance();
     }
   }
 
- Future<void> fetchDatas() async {
+  Future<void> fetchDatas() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-     final id = prefs.getString('resturent_id');
-     log("$id");
-
-    
+    final id = prefs.getString('resturent_id');
+    log("$id");
   }
+
   Future<void> deleteUser() async {
     SharedPreferences getuserId = await SharedPreferences.getInstance();
     final userId = getuserId.getString('resturent_id');
 
     try {
-      await FirebaseFirestore.instance.collection('approvedOne').doc(userId).delete();
+      await FirebaseFirestore.instance
+          .collection('approvedOne')
+          .doc(userId)
+          .delete();
     } catch (error) {
       log('Error deleting user: $error');
     }
   }
+
   Future<void> logout() async {
     SharedPreferences prefsId = await SharedPreferences.getInstance();
     await prefsId.setBool('isLogined', false);
     Get.offAll(const SplashScreen());
   }
-
 }

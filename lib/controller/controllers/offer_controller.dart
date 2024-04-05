@@ -6,7 +6,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class OfferController extends GetxController {
 
@@ -30,7 +29,7 @@ class OfferController extends GetxController {
           await storageReference.putFile(File(imageUrl));
       String downloadUrl = await uploadTask.ref.getDownloadURL();
       final response = await addpicture(downloadUrl);
-      if (response) {
+      if (response) {  
         log('Saved Successfully');
         return true;
       } else {
@@ -44,13 +43,12 @@ class OfferController extends GetxController {
   }
 
   Future<bool> addpicture(String imageurl) async {
-    SharedPreferences restruentPrefs = await SharedPreferences.getInstance();
-    String resturentId = restruentPrefs.getString('resturent_id').toString();
+    
 
     try {
       DocumentSnapshot snapshot = await FirebaseFirestore.instance
           .collection('offers')
-          .doc(resturentId)
+          .doc('cXxWMZArE1eBlkDXwx09') 
           .get();
 
       Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
@@ -59,7 +57,7 @@ class OfferController extends GetxController {
 
       await FirebaseFirestore.instance
           .collection('offers')
-          .doc(resturentId)
+          .doc('cXxWMZArE1eBlkDXwx09')
           .update({'imageUrls': currentImages});
 
       return true;
