@@ -130,6 +130,10 @@ class PrivacyPolicyScreen extends StatelessWidget {
               'If you have any questions or suggestions about our privacy policy, please contact us at ourdinny@gmail.com.',
               style: TextStyle(fontSize: 16.0),
             ),
+            Text(
+              'https://anjana-pv.github.io/policyOfAdmin/',
+              style: TextStyle(fontSize: 16.0),
+            ),
           ],
         ),
       ),
