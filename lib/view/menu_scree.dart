@@ -25,7 +25,8 @@ class NavBar extends StatelessWidget {
             decoration: BoxDecoration(
               image: DecorationImage(
                 image:
-                    AssetImage('assest/Apple_Watch_41mm_-_2-transformed.png'),
+                    AssetImage('assest/logo.png'),
+                    
                 fit: BoxFit.contain,
               ),
             ),
